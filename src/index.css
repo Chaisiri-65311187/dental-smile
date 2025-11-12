@@ -336,3 +336,48 @@ a:hover { text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+/* ===== Bottom-right Floating Buttons (โทร + Facebook) ===== */
+.social-rail-bottom {
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 1050;
+}
+
+.social-btn-pair {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+.social-btn-pair:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+  opacity: 0.95;
+}
+.social-label {
+  user-select: none;
+}
+
+/* ✅ มือถือ: ให้ใหญ่ขึ้น, อยู่ชิดขอบมากขึ้น */
+@media (max-width: 767.98px) {
+  .social-rail-bottom {
+    bottom: 18px;
+    right: 18px;
+    gap: 10px;
+  }
+  .social-btn-pair {
+    font-size: 13px;
+    padding: 9px 14px;
+  }
+}

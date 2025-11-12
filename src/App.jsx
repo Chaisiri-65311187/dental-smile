@@ -2,6 +2,7 @@
 import React from "react";
 import Header from "./components/Header.jsx";
 import Hero from "./components/Hero.jsx";
+import SocialRail from "./components/SocialRail.jsx"; 
 import Services from "./components/Services.jsx";
 import Team from "./components/Team.jsx";
 import Contact from "./components/Contact.jsx";
@@ -12,6 +13,7 @@ export default function App() {
     <>
       <Header />
       <Hero />
+      <SocialRail />
       <Services />
       <Team />
       <Contact />
