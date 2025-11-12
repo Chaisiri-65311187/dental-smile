@@ -4,6 +4,9 @@ export const CLINIC = {
   phone: "038-723460",
   phoneHref: "038723460", // สำหรับ href=tel:
   email: "contact@dentalsmilepattaya.com",
+   images: {
+    hero: "/d1.jpg", // ✅ จะถูกโหลดจาก public/d1.jpg
+  },
 
   // ที่อยู่: หน้า Contact/Service ใช้ 313/42-43 (หน้า Home/Map มี 313/5)
   // ถ้าต้องการให้ใช้เลขเดียวทั้งเว็บ เปลี่ยนได้ตรงนี้จุดเดียว

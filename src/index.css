@@ -97,3 +97,9 @@ button, .btn { border-radius: 12px; }
   transform: scale(1.1) rotate(5deg);
   box-shadow: 0 8px 28px rgba(14,165,164,.2);
 }
+
+.hero-overlay {
+  background:
+    linear-gradient(to bottom right, rgba(0,0,0,0.3), rgba(0,0,0,0.55)),
+    radial-gradient(80% 70% at 50% 20%, rgba(0,0,0,0.25), transparent 60%);
+}
