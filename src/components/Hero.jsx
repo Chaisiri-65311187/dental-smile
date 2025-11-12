@@ -7,21 +7,27 @@ import { useReveal } from "../hooks/useReveal";
 export default function Hero() {
   useReveal();
   const tel = (CLINIC.phoneHref || CLINIC.phone).replace(/\s|-/g, "");
+  const heroUrl = "/d1.jpg"; // รูปใน public
 
   return (
     <section id="hero" className="hero-wrap">
-      {/* ชั้นพื้นหลัง */}
+      {/* พื้นหลังหลัก */}
       <div
         className="hero-bg"
-        style={{ backgroundImage: `url("/d1.jpg")` }}
+        style={{ backgroundImage: `url("${heroUrl}")` }}
         role="img"
         aria-label="Dental Smile Pattaya Clinic"
       />
-      {/* เกรเดียนต์มืดนิดเพื่อคอนทราสต์ */}
+      {/* ✅ เลเยอร์เบลอจริง (filter: blur) */}
+      <div
+        className="hero-blur-layer"
+        style={{ backgroundImage: `url("${heroUrl}")` }}
+      />
+      {/* เกรเดียนต์ทับอ่านง่าย */}
       <div className="hero-overlay" />
 
-      <Container className="position-relative z-2">
-        {/* กล่องกระจก: เบลอหลังตัวอักษร + ขอบหรู */}
+      <Container className="position-relative z-3">
+        {/* กล่องกระจกอ่านง่ายทุกเบราว์เซอร์ */}
         <div className="hero-glass mx-auto reveal text-center text-white">
           <h1 className="fw-bold display-5 mb-3">
             ยิ้มสวย สุขภาพดี <span className="grad-text">ด้วยการดูแลที่อ่อนโยน</span>

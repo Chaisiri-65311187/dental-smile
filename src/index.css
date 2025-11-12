@@ -79,9 +79,8 @@ a:hover { text-decoration: underline; }
 .reveal-stagger.show > *:nth-child(4){ transition-delay:.24s }
 .reveal-stagger.show > *:nth-child(5){ transition-delay:.32s }
 .reveal-stagger.show > *:nth-child(6){ transition-delay:.4s }
-
 /* ===========================
-   💎 Hero Section
+   💎 Hero Section (cross-browser blur)
 =========================== */
 .hero-wrap {
   min-height: 100vh;
@@ -93,6 +92,7 @@ a:hover { text-decoration: underline; }
 }
 @supports (height: 100dvh) { .hero-wrap { min-height: 100dvh; } }
 
+/* รูปพื้นหลัง */
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -105,42 +105,49 @@ a:hover { text-decoration: underline; }
   transform: scale(1.03);
   animation: heroZoom 1.4s ease both;
   z-index: 0;
+  filter: brightness(.92); /* ลดแสงเล็กน้อยให้ตัวหนังสือชัด */
 }
 @keyframes heroZoom { from {transform:scale(1.08);} to {transform:scale(1);} }
 
+/* ✅ เลเยอร์เบลอจริง (ไม่ง้อ backdrop-filter) */
+.hero-blur-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(10px);
+  transform: scale(1.05);   /* ป้องกันเห็นขอบเบลอ */
+  z-index: 1;
+  opacity: .6;
+}
+
+/* เกรเดียนต์ทับให้อ่านง่าย */
 .hero-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(0,0,0,.20), rgba(0,0,0,.50)),
+    linear-gradient(to bottom, rgba(0,0,0,.22), rgba(0,0,0,.55)),
     radial-gradient(70% 60% at 50% 25%, rgba(0,0,0,.25), transparent 60%);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: 1;
+  z-index: 2;
 }
 
-/* 💎 กล่องกระจกใสใน Hero */
-.hero-glass {
+/* 💎 กล่องกระจก (มี fallback ถ้า backdrop-filter ใช้ไม่ได้) */
+.hero-glass{
   max-width: 980px;
   margin-inline: auto;
   padding: clamp(20px, 4vw, 36px);
   border-radius: 24px;
-  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  border: 1px solid rgba(255,255,255,.22);
+  /* fallback โปร่งนิดเพื่อความอ่านง่ายเสมอ */
+  background: rgba(15,23,42,.22);
+  border: 1px solid rgba(255,255,255,.25);
+  box-shadow: 0 30px 60px rgba(0,0,0,.25);
+  /* ถ้ารองรับก็เบลอเพิ่มความพรีเมียม */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 30px 60px rgba(0,0,0,.25);
 }
 @media (max-width: 768px){
   .hero-glass .display-5, .hero-glass .display-4{ font-size: 2rem; }
-}
-
-/* Gradient headline */
-.grad-text {
-  background: linear-gradient(90deg, #0ea5a4, #22d3ee, #0ea5a4);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 /* ===========================
