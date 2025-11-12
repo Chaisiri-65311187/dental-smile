@@ -1,0 +1,99 @@
+/* ===== Base reset (ล้างของ Vite เดิม) ===== */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #ffffff;          /* พื้นหลังขาว */
+  color: #0f172a;               /* ตัวหนังสือหลัก (slate-900) */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+#root { min-height: 100%; display: block; }  /* ห้าม flex-centring */
+
+/* ลิงก์ */
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ปุ่ม Bootstrap ทั่วไปให้โค้งนิด */
+button, .btn { border-radius: 12px; }
+
+/* ===== Theme variables ===== */
+:root{
+  --ds-primary:#0ea5a4;      /* teal modern */
+  --ds-primary-600:#0b8b8b;
+  --ds-ink:#0f172a;          /* slate-900 */
+  --ds-ink-2:#334155;        /* slate-600 */
+}
+
+/* ===== Utilities (modern helpers) ===== */
+.section-pad{ padding: 72px 0 }
+.text-ink{ color:var(--ds-ink) }
+.text-ink-2{ color:var(--ds-ink-2) }
+
+.card-soft{ border:0; border-radius:20px; box-shadow:0 16px 40px rgba(2,8,23,.08) }
+.card-soft:hover{ transform:translateY(-4px); transition:transform .3s ease, box-shadow .3s ease; box-shadow:0 20px 50px rgba(2,8,23,.12) }
+.glass{ background: rgba(255,255,255,.72); backdrop-filter: blur(10px); border:1px solid rgba(15,23,42,.08) }
+
+.btn-pill{ border-radius:999px !important; padding-inline:18px }
+.btn-primary{ background:var(--ds-primary); border-color:var(--ds-primary) }
+.btn-primary:hover{ background:var(--ds-primary-600); border-color:var(--ds-primary-600) }
+.btn-outline-primary{ color:var(--ds-primary); border-color:var(--ds-primary) }
+.btn-outline-primary:hover{ background:var(--ds-primary); border-color:var(--ds-primary) }
+
+/* ===== Reveal on scroll ===== */
+.reveal{ opacity:0; transform: translateY(16px); transition: all .6s ease }
+.reveal.show{ opacity:1; transform:none }
+.reveal-stagger > *{ opacity:0; transform: translateY(16px); transition: all .6s ease }
+.reveal-stagger.show > *{ opacity:1; transform:none }
+.reveal-stagger.show > *:nth-child(2){ transition-delay:.08s }
+.reveal-stagger.show > *:nth-child(3){ transition-delay:.16s }
+.reveal-stagger.show > *:nth-child(4){ transition-delay:.24s }
+.reveal-stagger.show > *:nth-child(5){ transition-delay:.32s }
+.reveal-stagger.show > *:nth-child(6){ transition-delay:.40s }
+
+/* ===== Hero ===== */
+.hero-wrap{ min-height:92vh; position:relative; display:flex; align-items:center; overflow:hidden }
+.hero-bg{ position:absolute; inset:0; background-size:cover; background-position:center; transform:scale(1.06); animation: heroZoom 1.2s ease both }
+.hero-overlay{
+  position:absolute; inset:0;
+  background:
+    radial-gradient(70% 60% at 50% 20%, rgba(2,6,23,.32), transparent 60%),
+    linear-gradient(to bottom, rgba(2,6,23,.25), rgba(2,6,23,.58));
+}
+@keyframes heroZoom{ from{ transform:scale(1.08) } to{ transform:scale(1) } }
+
+.grad-text{
+  background:linear-gradient(90deg, #0ea5a4, #22d3ee, #0ea5a4);
+  -webkit-background-clip:text; background-clip:text; color:transparent
+}
+
+/* ===== Micro-interactions ===== */
+.icon-ring{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:999px;
+  background:linear-gradient(180deg, rgba(34,211,238,.15), rgba(14,165,164,.15));
+  color:var(--ds-primary)
+}
+.img-zoom{ overflow:hidden; border-radius:14px }
+.img-zoom img{ transform:scale(1.02); transition: transform .6s ease }
+.img-zoom:hover img{ transform:scale(1.07) }
+.hover-lift { transition: transform .35s ease, box-shadow .35s ease; }
+.hover-lift:hover { transform: translateY(-6px); box-shadow: 0 14px 32px rgba(0,0,0,.12) !important; }
+
+/* ===== Footer wave ===== */
+.wave-top{ display:block; height:64px; background:
+  radial-gradient(120% 100% at 50% 120%, #0b1c2e 60%, transparent 61%) top/100% 100% no-repeat;
+}
+
+/* ===== Navbar shadow when scrolled ===== */
+.nav-scrolled{
+  box-shadow: 0 10px 30px rgba(2,8,23,.06);
+  border-bottom:1px solid rgba(15,23,42,.06) !important;
+}
+
+/* ---- Hover Icon Animation ---- */
+.card:hover .d-flex[style*="width: 72px"] {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 28px rgba(14,165,164,.2);
+}
