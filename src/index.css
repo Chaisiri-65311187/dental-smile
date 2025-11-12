@@ -1,105 +1,370 @@
-/* ===== Base reset (ล้างของ Vite เดิม) ===== */
+/* ===========================
+   💎 Base Reset & Theme Setup
+=========================== */
 * { box-sizing: border-box; }
-html, body { height: 100%; }
-html { scroll-behavior: smooth; }
+html, body { height: 100%; scroll-behavior: smooth; }
 body {
   margin: 0;
-  background: #ffffff;          /* พื้นหลังขาว */
-  color: #0f172a;               /* ตัวหนังสือหลัก (slate-900) */
+  background: #ffffff;
+  color: #0f172a;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.6;
 }
-#root { min-height: 100%; display: block; }  /* ห้าม flex-centring */
+#root { min-height: 100%; display: block; }
 
-/* ลิงก์ */
+/* Links */
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* ปุ่ม Bootstrap ทั่วไปให้โค้งนิด */
-button, .btn { border-radius: 12px; }
-
-/* ===== Theme variables ===== */
+/* Variables (teal modern tone) */
 :root{
-  --ds-primary:#0ea5a4;      /* teal modern */
+  --ds-primary:#0ea5a4;
   --ds-primary-600:#0b8b8b;
-  --ds-ink:#0f172a;          /* slate-900 */
-  --ds-ink-2:#334155;        /* slate-600 */
+  --ds-ink:#0f172a;
+  --ds-ink-2:#334155;
 }
 
-/* ===== Utilities (modern helpers) ===== */
+/* ===========================
+   💎 Reusable Helpers
+=========================== */
 .section-pad{ padding: 72px 0 }
 .text-ink{ color:var(--ds-ink) }
 .text-ink-2{ color:var(--ds-ink-2) }
 
-.card-soft{ border:0; border-radius:20px; box-shadow:0 16px 40px rgba(2,8,23,.08) }
-.card-soft:hover{ transform:translateY(-4px); transition:transform .3s ease, box-shadow .3s ease; box-shadow:0 20px 50px rgba(2,8,23,.12) }
-.glass{ background: rgba(255,255,255,.72); backdrop-filter: blur(10px); border:1px solid rgba(15,23,42,.08) }
-
+/* Buttons & Cards */
 .btn-pill{ border-radius:999px !important; padding-inline:18px }
 .btn-primary{ background:var(--ds-primary); border-color:var(--ds-primary) }
 .btn-primary:hover{ background:var(--ds-primary-600); border-color:var(--ds-primary-600) }
 .btn-outline-primary{ color:var(--ds-primary); border-color:var(--ds-primary) }
-.btn-outline-primary:hover{ background:var(--ds-primary); border-color:var(--ds-primary) }
+.btn-outline-primary:hover{ background:var(--ds-primary); border-color:var(--ds-primary); color:#fff }
 
-/* ===== Reveal on scroll ===== */
-.reveal{ opacity:0; transform: translateY(16px); transition: all .6s ease }
-.reveal.show{ opacity:1; transform:none }
-.reveal-stagger > *{ opacity:0; transform: translateY(16px); transition: all .6s ease }
-.reveal-stagger.show > *{ opacity:1; transform:none }
+.card-soft{
+  border:0; border-radius:20px;
+  box-shadow:0 16px 40px rgba(2,8,23,.08);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.card-soft:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 50px rgba(2,8,23,.12);
+}
+
+.glass{
+  background: rgba(255,255,255,.72);
+  backdrop-filter: blur(10px);
+  border:1px solid rgba(15,23,42,.08);
+}
+
+/* ===========================
+   💎 Reveal Animation
+=========================== */
+.reveal{ opacity:0; transform:translateY(16px); transition:all .6s ease; }
+.reveal.show{ opacity:1; transform:none; }
+
+.reveal-stagger > *{ opacity:0; transform:translateY(16px); transition:all .6s ease; }
+.reveal-stagger.show > *{ opacity:1; transform:none; }
 .reveal-stagger.show > *:nth-child(2){ transition-delay:.08s }
 .reveal-stagger.show > *:nth-child(3){ transition-delay:.16s }
 .reveal-stagger.show > *:nth-child(4){ transition-delay:.24s }
 .reveal-stagger.show > *:nth-child(5){ transition-delay:.32s }
-.reveal-stagger.show > *:nth-child(6){ transition-delay:.40s }
+.reveal-stagger.show > *:nth-child(6){ transition-delay:.4s }
 
-/* ===== Hero ===== */
-.hero-wrap{ min-height:92vh; position:relative; display:flex; align-items:center; overflow:hidden }
-.hero-bg{ position:absolute; inset:0; background-size:cover; background-position:center; transform:scale(1.06); animation: heroZoom 1.2s ease both }
-.hero-overlay{
-  position:absolute; inset:0;
-  background:
-    radial-gradient(70% 60% at 50% 20%, rgba(2,6,23,.32), transparent 60%),
-    linear-gradient(to bottom, rgba(2,6,23,.25), rgba(2,6,23,.58));
+/* ===========================
+   💎 Hero Section
+=========================== */
+.hero-wrap {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
-@keyframes heroZoom{ from{ transform:scale(1.08) } to{ transform:scale(1) } }
+@supports (height: 100dvh) { .hero-wrap { min-height: 100dvh; } }
 
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #000;
+  transform: scale(1.03);
+  animation: heroZoom 1.4s ease both;
+  z-index: 0;
+}
+@keyframes heroZoom { from {transform:scale(1.08);} to {transform:scale(1);} }
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.55)),
+              radial-gradient(70% 60% at 50% 25%, rgba(0,0,0,.3), transparent 60%);
+  backdrop-filter: blur(4px);           /* ✅ เบลอเล็กน้อย */
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+/* 💎 กล่องกระจกใสใน Hero */
+.hero-glass{
+  max-width: 980px;
+  margin-inline: auto;
+  padding: clamp(20px, 4vw, 36px);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+  border: 1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 30px 60px rgba(0,0,0,.25);
+}
+@media (max-width: 768px){
+  .hero-glass .display-5, .hero-glass .display-4{ font-size: 2rem; }
+}
+
+/* Gradient headline */
 .grad-text{
-  background:linear-gradient(90deg, #0ea5a4, #22d3ee, #0ea5a4);
-  -webkit-background-clip:text; background-clip:text; color:transparent
+  background: linear-gradient(90deg, #0ea5a4, #22d3ee, #0ea5a4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-/* ===== Micro-interactions ===== */
+/* ===========================
+   💎 Icons & Hover
+=========================== */
 .icon-ring{
   display:inline-flex; align-items:center; justify-content:center;
   width:44px; height:44px; border-radius:999px;
   background:linear-gradient(180deg, rgba(34,211,238,.15), rgba(14,165,164,.15));
   color:var(--ds-primary)
 }
+
 .img-zoom{ overflow:hidden; border-radius:14px }
 .img-zoom img{ transform:scale(1.02); transition: transform .6s ease }
 .img-zoom:hover img{ transform:scale(1.07) }
+
 .hover-lift { transition: transform .35s ease, box-shadow .35s ease; }
 .hover-lift:hover { transform: translateY(-6px); box-shadow: 0 14px 32px rgba(0,0,0,.12) !important; }
 
-/* ===== Footer wave ===== */
-.wave-top{ display:block; height:64px; background:
-  radial-gradient(120% 100% at 50% 120%, #0b1c2e 60%, transparent 61%) top/100% 100% no-repeat;
-}
-
-/* ===== Navbar shadow when scrolled ===== */
+/* ===========================
+   💎 Navbar & Footer
+=========================== */
 .nav-scrolled{
   box-shadow: 0 10px 30px rgba(2,8,23,.06);
   border-bottom:1px solid rgba(15,23,42,.06) !important;
 }
 
-/* ---- Hover Icon Animation ---- */
-.card:hover .d-flex[style*="width: 72px"] {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 8px 28px rgba(14,165,164,.2);
+.wave-top{
+  display:block; height:64px;
+  background: radial-gradient(120% 100% at 50% 120%, #0b1c2e 60%, transparent 61%) top/100% 100% no-repeat;
 }
 
-.hero-overlay {
-  background:
-    linear-gradient(to bottom right, rgba(0,0,0,0.3), rgba(0,0,0,0.55)),
-    radial-gradient(80% 70% at 50% 20%, rgba(0,0,0,0.25), transparent 60%);
+/* ===========================
+   💎 Section transitions
+=========================== */
+.section-fade {
+  background: linear-gradient(180deg,#f8fafc 0%,#ffffff 100%);
+  transition: background .5s ease;
+}
+
+/* ===========================
+   💎 Misc (nice scrollbars)
+=========================== */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #0ea5a4; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #0b8b8b; }
+
+/* ===== Modern Services Section ===== */
+.service-card {
+  box-shadow: 0 16px 40px rgba(2, 8, 23, 0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(2, 8, 23, 0.12);
+}
+
+/* ไอคอนมีแสงนุ่มๆ ตอน hover */
+.service-card:hover .service-icon {
+  transform: scale(1.1);
+  box-shadow: 0 10px 30px rgba(14, 165, 164, 0.3), 0 0 10px rgba(34, 211, 238, 0.4);
+}
+
+/* หัวเรื่อง section */
+.section-fade {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  transition: background 0.5s ease;
+}
+
+/* ===== Team Section (modern glass style) ===== */
+.team-card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 16px 40px rgba(2, 8, 23, 0.06);
+}
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(2, 8, 23, 0.12);
+}
+
+/* วงกลมภาพ + effect แสง */
+.team-img-wrapper {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 0 6px rgba(14,165,164,.1);
+  background: radial-gradient(circle at 50% 50%, rgba(14,165,164,.25), rgba(34,211,238,.1));
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+.team-img-wrapper:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(14,165,164,.35), 0 0 30px rgba(34,211,238,.25);
+}
+
+/* ภาพภายในวงกลม */
+.team-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.5s ease;
+}
+.team-img-wrapper:hover .team-img {
+  transform: scale(1.08);
+}
+
+/* ===== Contact Section ===== */
+.contact-card {
+  box-shadow: 0 16px 40px rgba(2, 8, 23, 0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.contact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(2, 8, 23, 0.1);
+}
+
+/* ปรับสี border iframe ให้ดู soft */
+.border-teal-100 {
+  border-color: rgba(14,165,164,.15) !important;
+}
+
+/* ปุ่มหลัก gradient hover */
+.btn-pill.text-white:hover {
+  background: linear-gradient(90deg, #22d3ee, #0ea5a4);
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(14,165,164,.3);
+}
+
+/* ===== Footer modern style ===== */
+.footer-link {
+  color: #b7fdf7;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-link:hover {
+  color: #22d3ee;
+  text-decoration: underline;
+}
+
+.border-white-10 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* social icons (ใช้ bootstrap icons) */
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #b7fdf7;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+.social-icon:hover {
+  background: linear-gradient(90deg, #0ea5a4, #22d3ee);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* make wave subtle blend */
+.wave-top {
+  height: 80px;
+  width: 100%;
+  display: block;
+  position: relative;
+  margin-bottom: -1px;
+  border: none;
+}
+
+/* ===== Header (พื้นขาวตลอดเวลา) ===== */
+.header-fixed {
+  background: #ffffff !important;
+  box-shadow: 0 2px 10px rgba(2, 8, 23, 0.04);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+/* มีเงาชัดขึ้นเล็กน้อยเมื่อ scroll */
+.header-fixed.nav-scrolled {
+  box-shadow: 0 6px 24px rgba(2, 8, 23, 0.08);
+  border-bottom-color: rgba(15, 23, 42, 0.08);
+}
+
+/* Gradient โลโก้ */
+.brand-gradient {
+  background: linear-gradient(90deg, #0ea5a4, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* เมนู modern */
+.nav-link-modern {
+  color: var(--ds-ink-2) !important;
+  font-weight: 500;
+  padding-inline: 12px;
+  position: relative;
+  transition: color .25s ease;
+}
+.nav-link-modern:hover {
+  color: var(--ds-primary) !important;
+}
+.nav-link-modern.active {
+  color: var(--ds-primary) !important;
+}
+.nav-link-modern.active::after,
+.nav-link-modern:hover::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #0ea5a4, #22d3ee, #0ea5a4);
+}
+
+/* ปุ่ม Call ไล่เฉด */
+.header-cta {
+  background: linear-gradient(90deg, #0ea5a4, #22d3ee);
+  border: none;
+  transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.header-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(14, 165, 164, .25);
+  opacity: .95;
+}
+
+/* มือถือ */
+@media (max-width: 991.98px) {
+  .header-fixed {
+    background: #ffffff !important;
+  }
+  .nav-link-modern::after { display: none; }
 }

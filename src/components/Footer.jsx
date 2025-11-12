@@ -4,18 +4,44 @@ import { CLINIC } from "../constants/clinic";
 
 export default function Footer() {
   return (
-    <footer className="mt-5 text-white" style={{
-      background:"linear-gradient(180deg, #0b1c2e, #02222a 60%, #001a1f)"
-    }}>
-      <div className="wave-top" />
-      <Container className="py-5 text-center small">
-        <h5 className="fw-bold mb-3">Dental Smile Pattaya</h5>
-        <p className="mb-2 opacity-90">{CLINIC.address}</p>
-        <p className="mb-2 opacity-90">
-          โทร: <a className="text-white text-decoration-underline" href={`tel:${(CLINIC.phoneHref||CLINIC.phone).replace(/\s|-/g,"")}`}>{CLINIC.phone}</a> ·
-          อีเมล: <a className="text-white text-decoration-underline" href={`mailto:${CLINIC.email}`}>{CLINIC.email}</a>
+    <footer
+      className="text-white position-relative"
+      style={{
+        background: "linear-gradient(180deg, #03202b 0%, #001519 100%)",
+        overflow: "hidden",
+      }}
+    >
+      {/* wave ด้านบน */}
+      <div
+        className="wave-top"
+        style={{
+          background:
+            "radial-gradient(120% 100% at 50% 120%, #0ea5a4 40%, transparent 60%)",
+          opacity: 0.12,
+        }}
+      />
+
+      <Container className="py-5 text-center small position-relative z-2">
+        <h5 className="fw-bold mb-3 grad-text">Dental Smile Pattaya</h5>
+        <p className="mb-2 text-white-50">{CLINIC.address}</p>
+
+        <p className="mb-2 text-white-50">
+          โทร:{" "}
+          <a
+            className="footer-link"
+            href={`tel:${(CLINIC.phoneHref || CLINIC.phone).replace(/\s|-/g, "")}`}
+          >
+            {CLINIC.phone}
+          </a>{" "}
+          · อีเมล:{" "}
+          <a className="footer-link" href={`mailto:${CLINIC.email}`}>
+            {CLINIC.email}
+          </a>
         </p>
-        <p className="mb-0 opacity-75">© {new Date().getFullYear()} {CLINIC.name}. All rights reserved.</p>
+
+        <div className="opacity-75 mt-4 pt-3 border-top border-white-10">
+          © {new Date().getFullYear()} {CLINIC.name}. All rights reserved.
+        </div>
       </Container>
     </footer>
   );
