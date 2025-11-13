@@ -22,12 +22,13 @@ export default function Contact() {
     <section
       id="contact"
       style={{
-        background: "#020617",
-        color: "#e5e7eb",
-        padding: "3.5rem 1.25rem 4rem",
+        background: "linear-gradient(to bottom, #f9fafb, #e0f2fe)",
+        color: "#0f172a",
+        padding: "3.4rem 1.25rem 3.6rem",
       }}
     >
       <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+        {/* Heading */}
         <div
           style={{
             textAlign: "center",
@@ -40,7 +41,7 @@ export default function Contact() {
               fontSize: "1.9rem",
               fontWeight: 800,
               letterSpacing: "-0.04em",
-              color: "#f9fafb",
+              color: "#020617",
             }}
           >
             Contact & appointment
@@ -49,7 +50,7 @@ export default function Contact() {
             style={{
               marginTop: "0.5rem",
               fontSize: 14,
-              color: "#9ca3af",
+              color: "#4b5563",
             }}
           >
             Open daily • 09:00 – 19:00 • Near South Pattaya Road
@@ -59,19 +60,19 @@ export default function Contact() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "minmax(0,0.9fr) minmax(0,1.1fr)",
-            gap: "1.5rem",
+            gridTemplateColumns: "minmax(0,0.95fr) minmax(0,1.05fr)",
+            gap: "1.6rem",
             alignItems: "flex-start",
           }}
         >
           {/* Clinic info + map */}
           <div
             style={{
-              borderRadius: 24,
-              background: "rgba(15,23,42,0.95)",
-              border: "1px solid rgba(51,65,85,0.9)",
-              padding: "1.3rem 1.3rem 1.1rem",
-              boxShadow: "0 18px 40px rgba(15,23,42,0.85)",
+              borderRadius: 22,
+              background: "#ffffff",
+              border: "1px solid rgba(148,163,184,0.6)",
+              padding: "1.25rem 1.25rem 1.1rem",
+              boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
             }}
           >
             <h3
@@ -79,7 +80,7 @@ export default function Contact() {
                 margin: "0 0 0.7rem",
                 fontSize: 16,
                 fontWeight: 700,
-                color: "#f9fafb",
+                color: "#020617",
               }}
             >
               Clinic location
@@ -88,16 +89,16 @@ export default function Contact() {
               style={{
                 margin: 0,
                 fontSize: 13,
-                color: "#cbd5f5",
+                color: "#374151",
               }}
             >
               {CLINIC_INFO.addressMain}
             </p>
             <p
               style={{
-                margin: "0.4rem 0 0.8rem",
+                margin: "0.45rem 0 0.85rem",
                 fontSize: 12,
-                color: "#9ca3af",
+                color: "#6b7280",
               }}
             >
               Taxi note: {CLINIC_INFO.addressTaxi}
@@ -109,18 +110,25 @@ export default function Contact() {
                 flexDirection: "column",
                 gap: "0.25rem",
                 fontSize: 13,
-                marginBottom: "0.75rem",
+                marginBottom: "0.8rem",
               }}
             >
               <a
                 href={phoneHref}
-                style={{ color: "#a5b4fc", textDecoration: "none" }}
+                style={{
+                  color: "#0369a1",
+                  textDecoration: "none",
+                  fontWeight: 500,
+                }}
               >
                 📞 {CLINIC_INFO.phone}
               </a>
               <a
                 href={`mailto:${CLINIC_INFO.email}`}
-                style={{ color: "#a5b4fc", textDecoration: "none" }}
+                style={{
+                  color: "#0369a1",
+                  textDecoration: "none",
+                }}
               >
                 ✉️ {CLINIC_INFO.email}
               </a>
@@ -130,7 +138,7 @@ export default function Contact() {
               style={{
                 borderRadius: 18,
                 overflow: "hidden",
-                border: "1px solid rgba(30,64,175,0.7)",
+                border: "1px solid rgba(59,130,246,0.4)",
               }}
               id="map"
             >
@@ -144,14 +152,14 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Form */}
+          {/* Appointment form */}
           <div
             style={{
-              borderRadius: 24,
-              background: "radial-gradient(circle at top, #111827, #020617)",
-              border: "1px solid rgba(55,65,81,0.95)",
+              borderRadius: 22,
+              background: "#ffffff",
+              border: "1px solid rgba(148,163,184,0.6)",
               padding: "1.4rem 1.4rem 1.1rem",
-              boxShadow: "0 20px 46px rgba(15,23,42,0.9)",
+              boxShadow: "0 16px 40px rgba(15,23,42,0.06)",
             }}
           >
             <h3
@@ -159,16 +167,16 @@ export default function Contact() {
                 margin: 0,
                 fontSize: 16,
                 fontWeight: 700,
-                color: "#f9fafb",
+                color: "#020617",
               }}
             >
               Quick appointment request
             </h3>
             <p
               style={{
-                margin: "0.4rem 0 1.1rem",
-                fontSize: 12,
-                color: "#9ca3af",
+                margin: "0.4rem 0 1rem",
+                fontSize: 12.5,
+                color: "#6b7280",
               }}
             >
               Fill in a few details and our staff will contact you back to
@@ -199,7 +207,7 @@ export default function Contact() {
                         style={{
                           display: "block",
                           marginBottom: 4,
-                          color: "#e5e7eb",
+                          color: "#111827",
                           fontWeight: 500,
                         }}
                       >
@@ -219,14 +227,15 @@ export default function Contact() {
                               display: "flex",
                               alignItems: "center",
                               gap: 4,
-                              color: "#cbd5f5",
+                              color: "#374151",
+                              fontSize: 12,
                             }}
                           >
                             <input
                               type="checkbox"
                               name={field.name}
                               value={opt}
-                              style={{ accentColor: "#6366f1" }}
+                              style={{ accentColor: "#0ea5e9" }}
                             />
                             <span>{opt}</span>
                           </label>
@@ -243,7 +252,7 @@ export default function Contact() {
                         style={{
                           display: "block",
                           marginBottom: 4,
-                          color: "#e5e7eb",
+                          color: "#111827",
                           fontWeight: 500,
                         }}
                       >
@@ -256,11 +265,12 @@ export default function Contact() {
                         style={{
                           width: "100%",
                           borderRadius: 10,
-                          border: "1px solid rgba(75,85,99,0.9)",
-                          background: "rgba(15,23,42,0.95)",
-                          color: "#e5e7eb",
+                          border: "1px solid rgba(209,213,219,1)",
+                          background: "#ffffff",
+                          color: "#111827",
                           padding: "0.5rem 0.6rem",
                           resize: "vertical",
+                          fontSize: 12,
                         }}
                       />
                     </div>
@@ -273,7 +283,7 @@ export default function Contact() {
                       style={{
                         display: "block",
                         marginBottom: 4,
-                        color: "#e5e7eb",
+                        color: "#111827",
                         fontWeight: 500,
                       }}
                     >
@@ -294,10 +304,11 @@ export default function Contact() {
                       style={{
                         width: "100%",
                         borderRadius: 10,
-                        border: "1px solid rgba(75,85,99,0.9)",
-                        background: "rgba(15,23,42,0.95)",
-                        color: "#e5e7eb",
+                        border: "1px solid rgba(209,213,219,1)",
+                        background: "#ffffff",
+                        color: "#111827",
                         padding: "0.45rem 0.6rem",
+                        fontSize: 12,
                       }}
                     />
                   </div>
@@ -309,15 +320,15 @@ export default function Contact() {
                   type="submit"
                   style={{
                     borderRadius: 999,
-                    padding: "0.55rem 1.4rem",
+                    padding: "0.55rem 1.5rem",
                     border: "none",
                     background:
-                      "linear-gradient(135deg, #38bdf8, #6366f1, #a855f7)",
+                      "linear-gradient(135deg, #0ea5e9, #14b8a6, #22c55e)",
                     color: "#f9fafb",
                     fontSize: 13,
                     fontWeight: 600,
                     cursor: "pointer",
-                    boxShadow: "0 14px 34px rgba(37,99,235,0.8)",
+                    boxShadow: "0 14px 34px rgba(8,47,73,0.35)",
                   }}
                 >
                   Submit appointment request

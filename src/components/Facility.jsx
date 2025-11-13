@@ -24,25 +24,33 @@ const FEATURES = [
   },
 ];
 
+const ICONS = ["🩻", "🧼", "⚕️", "🪑", "🌐"];
+
 export default function Facility() {
   return (
     <section
       id="facility"
       style={{
-        background: "radial-gradient(circle at top, #020617, #020617 55%)",
-        color: "#e5e7eb",
-        padding: "3.5rem 1.25rem",
+        background: "linear-gradient(to bottom, #f9fafb, #e0f2fe)",
+        color: "#0f172a",
+        padding: "3.2rem 1.25rem",
       }}
     >
       <div style={{ maxWidth: 1120, margin: "0 auto" }}>
-        <div style={{ maxWidth: 640, marginBottom: "1.8rem" }}>
+        {/* Heading */}
+        <div
+          style={{
+            maxWidth: 620,
+            marginBottom: "1.9rem",
+          }}
+        >
           <h2
             style={{
               margin: 0,
               fontSize: "1.8rem",
               fontWeight: 800,
               letterSpacing: "-0.04em",
-              color: "#f9fafb",
+              color: "#020617",
             }}
           >
             Clinic facility
@@ -51,7 +59,7 @@ export default function Facility() {
             style={{
               marginTop: "0.5rem",
               fontSize: 14,
-              color: "#9ca3af",
+              color: "#4b5563",
             }}
           >
             Designed for both local and international patients: clean, modern
@@ -59,55 +67,81 @@ export default function Facility() {
           </p>
         </div>
 
+        {/* Feature cards */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))",
-            gap: "1.4rem",
+            gap: "1.2rem",
           }}
         >
-          {FEATURES.map((f) => (
+          {FEATURES.map((f, idx) => (
             <article
               key={f.title}
               style={{
-                borderRadius: 20,
-                padding: "1rem 1rem 0.9rem",
-                background:
-                  "radial-gradient(circle at top left, #0f172a, #020617)",
-                border: "1px solid rgba(51,65,85,0.9)",
-                boxShadow: "0 16px 36px rgba(15,23,42,0.85)",
+                borderRadius: 18,
+                padding: "0.9rem 1rem 0.85rem",
+                background: "rgba(255,255,255,0.98)",
+                border: "1px solid rgba(148,163,184,0.55)",
+                boxShadow: "0 12px 30px rgba(15,23,42,0.06)",
+                display: "flex",
+                flexDirection: "row",
+                gap: "0.75rem",
+                alignItems: "flex-start",
               }}
             >
+              {/* Icon circle */}
               <div
                 style={{
-                  fontSize: 11,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.12em",
-                  color: "#64748b",
-                  marginBottom: 6,
+                  flexShrink: 0,
+                  width: 32,
+                  height: 32,
+                  borderRadius: "999px",
+                  background:
+                    "radial-gradient(circle, #e0f2fe 0, #bae6fd 50%, #7dd3fc 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 18,
+                  boxShadow: "0 6px 14px rgba(12,74,110,0.25)",
                 }}
               >
-                Facility
+                {ICONS[idx] || "🏥"}
               </div>
-              <h3
-                style={{
-                  margin: 0,
-                  fontSize: 14,
-                  fontWeight: 600,
-                  color: "#f9fafb",
-                }}
-              >
-                {f.title}
-              </h3>
-              <p
-                style={{
-                  marginTop: 6,
-                  fontSize: 12,
-                  color: "#9ca3af",
-                }}
-              >
-                {f.body}
-              </p>
+
+              {/* Text */}
+              <div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.12em",
+                    color: "#0ea5e9",
+                    marginBottom: 4,
+                  }}
+                >
+                  Facility
+                </div>
+                <h3
+                  style={{
+                    margin: 0,
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: "#020617",
+                  }}
+                >
+                  {f.title}
+                </h3>
+                <p
+                  style={{
+                    marginTop: 5,
+                    fontSize: 12,
+                    color: "#6b7280",
+                  }}
+                >
+                  {f.body}
+                </p>
+              </div>
             </article>
           ))}
         </div>

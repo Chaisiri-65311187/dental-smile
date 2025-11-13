@@ -1,5 +1,5 @@
 // src/components/Header.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CLINIC_INFO } from "../constants/clinic";
 
 const NAV_ITEMS = [
@@ -12,13 +12,30 @@ const NAV_ITEMS = [
   { href: "#map", label: "Map" },
 ];
 
-export default function Header() {
+export default function Header({ lang = "en", toggleLang }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const handleScrollTo = (e, href) => {
     e.preventDefault();
     const id = href.replace("#", "");
     const el = document.getElementById(id);
     if (!el) return;
-    const y = el.getBoundingClientRect().top + window.scrollY - 80;
+
+    const offset = 80;
+    const y = el.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
@@ -26,17 +43,21 @@ export default function Header() {
     .replace(/\s|-/g, "")
     .trim()}`;
 
+  const headerClassName = [
+    "header-fixed",
+    isScrolled ? "nav-scrolled" : "",
+    isMounted ? "header-enter" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <header
-      className="ds-header"
+      className={headerClassName}
       style={{
         position: "sticky",
         top: 0,
-        zIndex: 50,
-        backdropFilter: "blur(18px)",
-        background:
-          "linear-gradient(90deg, rgba(15,23,42,0.9), rgba(30,64,175,0.9))",
-        borderBottom: "1px solid rgba(148,163,184,0.25)",
+        width: "100%",
       }}
     >
       <div
@@ -44,57 +65,74 @@ export default function Header() {
         style={{
           maxWidth: "1120px",
           margin: "0 auto",
-          padding: "0.6rem 1.25rem",
+          padding: "0.55rem 1.25rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: "1rem",
+          gap: "1.5rem",
         }}
       >
         {/* Logo / Brand */}
         <div
           className="ds-logo"
-          style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.8rem",
+          }}
         >
           <div
+            className="logo-badge"
             style={{
-              width: 36,
-              height: 36,
+              width: 40,
+              height: 40,
               borderRadius: "999px",
               background:
-                "conic-gradient(from 180deg at 50% 50%, #38bdf8, #6366f1, #a855f7, #38bdf8)",
+                "conic-gradient(from 180deg at 50% 50%, #22d3ee, #0ea5a4, #a5f3fc, #22d3ee)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "white",
+              color: "#ffffff",
               fontWeight: 800,
-              fontSize: 18,
-              boxShadow: "0 8px 22px rgba(15,23,42,0.45)",
+              fontSize: 20,
+              boxShadow: "0 10px 26px rgba(15,23,42,0.18)",
             }}
           >
-            DS
+            🦷
           </div>
+
           <div style={{ lineHeight: 1.2 }}>
             <div
+              className="brand-gradient"
               style={{
                 fontSize: 16,
                 fontWeight: 700,
-                color: "#e5e7eb",
-                letterSpacing: "0.04em",
+                letterSpacing: "0.06em",
                 textTransform: "uppercase",
               }}
             >
               {CLINIC_INFO.name}
             </div>
-            <div style={{ fontSize: 12, color: "#9ca3af" }}>
+            <div
+              style={{
+                fontSize: 13,
+                color: "#6b7280",
+                fontWeight: 400,
+                maxWidth: 260,
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+              }}
+            >
               {CLINIC_INFO.tagline}
             </div>
           </div>
         </div>
 
-        {/* Nav */}
+        {/* Nav + CTA */}
         <nav
           className="ds-nav"
+          aria-label="Main navigation"
           style={{
             display: "flex",
             alignItems: "center",
@@ -107,7 +145,7 @@ export default function Header() {
               listStyle: "none",
               display: "flex",
               alignItems: "center",
-              gap: "1.2rem",
+              gap: "0.9rem",
               margin: 0,
               padding: 0,
             }}
@@ -117,29 +155,33 @@ export default function Header() {
                 <a
                   href={item.href}
                   onClick={(e) => handleScrollTo(e, item.href)}
+                  className="nav-link-modern nav-link-animate"
                   style={{
-                    color: "#cbd5f5",
                     textDecoration: "none",
-                    fontWeight: 500,
-                    position: "relative",
+                    paddingBlock: 6,
                   }}
                 >
-                  <span className="ds-nav-label">{item.label}</span>
+                  {item.label}
                 </a>
               </li>
             ))}
           </ul>
 
-          {/* CTA */}
+          {/* CTA area */}
           <div
             className="ds-nav-cta"
-            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              marginLeft: "0.5rem",
+            }}
           >
             <a
               href={phoneHref}
+              className="nav-phone"
               style={{
                 fontSize: 13,
-                color: "#bfdbfe",
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "center",
@@ -151,24 +193,39 @@ export default function Header() {
               </span>
               <span>{CLINIC_INFO.phone}</span>
             </a>
+
             <a
               href="#contact"
               onClick={(e) => handleScrollTo(e, "#contact")}
+              className="btn btn-pill text-white header-cta header-cta-anim hero-cta-main"
               style={{
                 fontSize: 13,
                 fontWeight: 600,
-                padding: "0.4rem 0.9rem",
-                borderRadius: 999,
-                background:
-                  "linear-gradient(135deg, #38bdf8, #6366f1, #a855f7)",
-                color: "#f9fafb",
-                textDecoration: "none",
-                boxShadow: "0 10px 30px rgba(30,64,175,0.7)",
+                padding: "0.4rem 1rem",
                 whiteSpace: "nowrap",
               }}
             >
               Book appointment
             </a>
+
+            {/* Lang toggle */}
+            {typeof toggleLang === "function" && (
+              <button
+                onClick={toggleLang}
+                className="lang-switch"
+                style={{
+                  padding: "0.32rem 0.7rem",
+                  borderRadius: 999,
+                  border: "1px solid rgba(148,163,184,0.45)",
+                  background: "rgba(255,255,255,0.7)",
+                  fontSize: 12,
+                  cursor: "pointer",
+                  backdropFilter: "blur(6px)",
+                }}
+              >
+                {lang === "en" ? "TH" : "EN"}
+              </button>
+            )}
           </div>
         </nav>
       </div>

@@ -9,11 +9,21 @@ import Facility from "./components/Facility.jsx";
 import Contact from "./components/Contact.jsx";
 import SocialRail from "./components/SocialRail.jsx";
 import Footer from "./components/Footer.jsx";
+import { LanguageProvider, useLang } from "./contexts/LanguageContext";
+
+// ⭐ Wrapper เพื่อดึง lang + toggleLang ไปส่งเข้า Header
+function HeaderWithLang() {
+  const { lang, switchLang } = useLang();
+
+  return <Header lang={lang} toggleLang={switchLang} />;
+}
 
 export default function App() {
   return (
-    <>
-      <Header />
+    <LanguageProvider>
+      {/* ⭐ Header อยู่ภายใน Provider แล้ว */}
+      <HeaderWithLang />
+
       <main>
         <Hero />
         <Services />
@@ -22,8 +32,9 @@ export default function App() {
         <Facility />
         <Contact />
       </main>
+
       <SocialRail />
       <Footer />
-    </>
+    </LanguageProvider>
   );
 }

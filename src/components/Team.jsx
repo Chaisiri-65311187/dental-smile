@@ -1,6 +1,7 @@
 // src/components/Team.jsx
 import React from "react";
 import { STAFF } from "../data/staff";
+import { useReveal } from "../hooks/useReveal";
 
 function getDoctorImage(doc) {
   if (doc.img) return doc.img;
@@ -16,36 +17,32 @@ const FALLBACK_IMG =
   "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop";
 
 export default function Team() {
-  // ✅ เรียงตาม order ก่อน (ถ้าไม่มี order จะไปอยู่ท้ายๆ)
-  const orderedStaff = [...STAFF].sort((a, b) => {
-    const ao = a.order ?? 999;
-    const bo = b.order ?? 999;
-    return ao - bo;
-  });
+  // ใช้ hook สำหรับ reveal animation (ใช้ร่วมกับ .reveal / .reveal-stagger ใน CSS)
+  useReveal();
+
+  const orderedStaff = [...STAFF].sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 
   return (
     <section
       id="team"
+      className="section-pad section-fade"
       style={{
         background: "#f9fafb",
         color: "#0f172a",
-        padding: "3.5rem 1.25rem",
       }}
     >
-      <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1080, margin: "0 auto", paddingInline: "1.25rem" }}>
+        {/* Heading */}
         <div
-          style={{
-            textAlign: "center",
-            marginBottom: "2rem",
-          }}
+          className="reveal"
+          style={{ textAlign: "center", marginBottom: "2rem" }}
         >
-          <div style={{ fontSize: 32, marginBottom: 8 }}>👩‍⚕️🧑‍⚕️</div>
           <h2
             style={{
               margin: 0,
-              fontSize: "1.9rem",
+              fontSize: "1.7rem",
               fontWeight: 800,
-              letterSpacing: "-0.04em",
+              letterSpacing: "-0.035em",
               color: "#020617",
             }}
           >
@@ -53,138 +50,93 @@ export default function Team() {
           </h2>
           <p
             style={{
-              marginTop: "0.5rem",
-              fontSize: 14,
+              marginTop: "0.35rem",
+              fontSize: 13.5,
               color: "#6b7280",
             }}
           >
-            Board-certified specialists with international training and gentle
-            bedside manners.
+            Experienced, gentle and internationally trained.
           </p>
         </div>
 
+        {/* Grid */}
         <div
+          className="reveal-stagger"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))",
-            gap: "1.4rem",
+            gridTemplateColumns: "repeat(3, minmax(0,1fr))",
+            gap: "1.5rem",
           }}
         >
           {orderedStaff.map((doc) => {
             const imgSrc = getDoctorImage(doc);
+
             return (
               <article
                 key={doc.name}
-                className="doctor-card hover-lift"
+                className="team-card"
                 style={{
-                  borderRadius: 24,
                   background: "#ffffff",
-                  border: "1px solid rgba(148,163,184,0.35)",
-                  boxShadow: "0 16px 36px rgba(15,23,42,0.06)",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  position: "relative",
+                  borderRadius: 20,
+                  padding: "1.4rem 0.9rem 1.2rem",
+                  border: "1px solid rgba(148,163,184,0.25)",
+                  textAlign: "center",
                 }}
               >
-                {/* รูปหมอ */}
+                {/* รูปหมอวงกลม – ใช้ .team-img-wrapper / .team-img จาก CSS */}
                 <div
-                  className="doctor-card-img"
+                  className="team-img-wrapper"
                   style={{
-                    position: "relative",
-                    width: "100%",
-                    paddingTop: "70%", // อัตราส่วนรูป
-                    overflow: "hidden",
+                    margin: "0 auto 0.85rem",
                   }}
                 >
                   <img
                     src={imgSrc}
                     alt={doc.name}
-                    onError={(e) => {
-                      e.currentTarget.src = FALLBACK_IMG;
-                    }}
-                    className="doctor-card-img-inner"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+                    onError={(e) => (e.currentTarget.src = FALLBACK_IMG)}
+                    className="team-img"
                   />
-                  <div
-                    style={{
-                      position: "absolute",
-                      insetInline: 0,
-                      bottom: 0,
-                      height: "40%",
-                      background:
-                        "linear-gradient(to top, rgba(15,23,42,0.7), transparent)",
-                    }}
-                  />
-                  {doc.nickname && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        left: 12,
-                        bottom: 10,
-                        padding: "0.15rem 0.6rem",
-                        borderRadius: 999,
-                        fontSize: 11,
-                        background:
-                          "linear-gradient(135deg,#3b82f6,#6366f1,#a855f7)",
-                        color: "#f9fafb",
-                        boxShadow: "0 10px 24px rgba(37,99,235,0.7)",
-                      }}
-                    >
-                      {doc.nickname}
-                    </div>
-                  )}
                 </div>
 
-                {/* ข้อมูลหมอ */}
+                {/* ชื่อหมอ */}
                 <div
                   style={{
-                    padding: "0.9rem 1.05rem 0.85rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.45rem",
+                    fontSize: 14,
+                    fontWeight: 700,
+                    color: "#020617",
                   }}
                 >
-                  <div>
-                    <div
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 700,
-                        color: "#020617",
-                      }}
-                    >
-                      {doc.name}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 12,
-                        color: "#1d4ed8",
-                        marginTop: 2,
-                      }}
-                    >
-                      {doc.specialty}
-                    </div>
-                  </div>
-
-                  <ul
-                    style={{
-                      margin: 0,
-                      padding: "0 0 0 1.1rem",
-                      fontSize: 12,
-                      color: "#6b7280",
-                    }}
-                  >
-                    {(doc.education || []).slice(0, 3).map((edu, idx) => (
-                      <li key={idx}>{edu}</li>
-                    ))}
-                  </ul>
+                  {doc.name}
                 </div>
+
+                {/* ตำแหน่ง */}
+                <div
+                  style={{
+                    fontSize: 12.5,
+                    marginTop: 2,
+                    color: "#0d9488",
+                    fontWeight: 500,
+                  }}
+                >
+                  {doc.specialty}
+                </div>
+
+                {/* การศึกษา */}
+                <ul
+                  style={{
+                    marginTop: "0.6rem",
+                    marginBottom: 0,
+                    padding: 0,
+                    listStyle: "none",
+                    fontSize: 11.5,
+                    color: "#6b7280",
+                    lineHeight: 1.45,
+                  }}
+                >
+                  {(doc.education || []).slice(0, 2).map((edu, idx) => (
+                    <li key={idx}>{edu}</li>
+                  ))}
+                </ul>
               </article>
             );
           })}
