@@ -1,148 +1,332 @@
+// src/components/Contact.jsx
 import React from "react";
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import { CLINIC } from "../constants/clinic";
-import { useReveal } from "../hooks/useReveal";
+import { CLINIC_INFO } from "../constants/clinic";
+import {
+  CONTACT_FORM_FIELDS,
+  APPOINTMENT_FORM_FIELDS,
+} from "../data/forms";
 
 export default function Contact() {
-  useReveal();
-  const tel = (CLINIC.phoneHref || CLINIC.phone).replace(/\s|-/g, "");
+  const phoneHref = `tel:${(CLINIC_INFO.phoneHref || CLINIC_INFO.phone)
+    .replace(/\s|-/g, "")
+    .trim()}`;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(
+      "✅ Your message has been captured on this demo site. In production you would send it to email / backend."
+    );
+  };
 
   return (
     <section
       id="contact"
-      className="section-pad"
       style={{
-        background:
-          "linear-gradient(180deg, #f8fafc 0%, #ffffff 100%), radial-gradient(circle at 10% 0%, rgba(14,165,164,.08), transparent 60%)",
+        background: "#020617",
+        color: "#e5e7eb",
+        padding: "3.5rem 1.25rem 4rem",
       }}
     >
-      <Container>
-        {/* ===== หัวเรื่อง ===== */}
-        <div className="text-center mb-5 reveal show">
-          <div className="icon-ring mx-auto mb-3">📍</div>
-          <h2 className="fw-bold display-6 text-ink mb-2">ติดต่อเรา / นัดหมาย</h2>
-          <div
+      <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "2rem",
+          }}
+        >
+          <h2
             style={{
-              width: "90px",
-              height: "4px",
-              borderRadius: "3px",
-              background: "linear-gradient(90deg, #0ea5a4, #22d3ee, #0ea5a4)",
-              margin: "0 auto 1rem",
-              boxShadow: "0 0 10px rgba(14,165,164,.4)",
+              margin: 0,
+              fontSize: "1.9rem",
+              fontWeight: 800,
+              letterSpacing: "-0.04em",
+              color: "#f9fafb",
             }}
-          />
-          <p className="text-ink-2 fs-5">เปิดบริการทุกวัน 09:00 – 19:00 น.</p>
+          >
+            Contact & appointment
+          </h2>
+          <p
+            style={{
+              marginTop: "0.5rem",
+              fontSize: 14,
+              color: "#9ca3af",
+            }}
+          >
+            Open daily • 09:00 – 19:00 • Near South Pattaya Road
+          </p>
         </div>
 
-        {/* ===== กล่องแผนที่ + ฟอร์ม ===== */}
-        <Row className="g-4 reveal-stagger">
-          {/* ---- แผนที่ ---- */}
-          <Col md={6}>
-            <Card
-              className="contact-card h-100 text-start border-0"
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0,0.9fr) minmax(0,1.1fr)",
+            gap: "1.5rem",
+            alignItems: "flex-start",
+          }}
+        >
+          {/* Clinic info + map */}
+          <div
+            style={{
+              borderRadius: 24,
+              background: "rgba(15,23,42,0.95)",
+              border: "1px solid rgba(51,65,85,0.9)",
+              padding: "1.3rem 1.3rem 1.1rem",
+              boxShadow: "0 18px 40px rgba(15,23,42,0.85)",
+            }}
+          >
+            <h3
               style={{
-                borderRadius: 24,
-                background:
-                  "linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.85))",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
+                margin: "0 0 0.7rem",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#f9fafb",
               }}
             >
-              <Card.Body>
-                <h5 className="fw-semibold text-ink mb-2">คลินิก</h5>
-                <p className="text-ink-2 mb-1">{CLINIC.address}</p>
-                <p className="mb-1">
-                  โทร: <a href={`tel:${tel}`}>{CLINIC.phone}</a>
-                </p>
-                <p className="mb-4">
-                  อีเมล: <a href={`mailto:${CLINIC.email}`}>{CLINIC.email}</a>
-                </p>
-                <div className="ratio ratio-16x9 rounded overflow-hidden shadow-sm border border-teal-100">
-                  <iframe
-                    src={CLINIC.map.embed}
-                    title="Map"
-                    loading="lazy"
-                    allowFullScreen
-                    style={{ border: 0 }}
-                  />
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
+              Clinic location
+            </h3>
+            <p
+              style={{
+                margin: 0,
+                fontSize: 13,
+                color: "#cbd5f5",
+              }}
+            >
+              {CLINIC_INFO.addressMain}
+            </p>
+            <p
+              style={{
+                margin: "0.4rem 0 0.8rem",
+                fontSize: 12,
+                color: "#9ca3af",
+              }}
+            >
+              Taxi note: {CLINIC_INFO.addressTaxi}
+            </p>
 
-          {/* ---- ฟอร์มนัดหมาย ---- */}
-          <Col md={6}>
-            <Card
-              className="contact-card h-100 border-0"
+            <div
               style={{
-                borderRadius: 24,
-                background:
-                  "linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.8))",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.25rem",
+                fontSize: 13,
+                marginBottom: "0.75rem",
               }}
             >
-              <Card.Body>
-                <h5 className="fw-semibold text-ink mb-3">นัดหมาย / สอบถาม</h5>
-                <Form
-                  className="small"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    alert("✅ ส่งคำขอเรียบร้อยแล้ว ขอบคุณค่ะ");
-                  }}
-                >
-                  <Row className="g-3">
-                    <Col sm={6}>
-                      <Form.Label>ชื่อ</Form.Label>
-                      <Form.Control placeholder="ชื่อ - นามสกุล" />
-                    </Col>
-                    <Col sm={6}>
-                      <Form.Label>โทรศัพท์</Form.Label>
-                      <Form.Control placeholder="09x-xxx-xxxx" />
-                    </Col>
-                    <Col sm={6}>
-                      <Form.Label>อีเมล</Form.Label>
-                      <Form.Control type="email" placeholder="you@example.com" />
-                    </Col>
-                    <Col sm={6}>
-                      <Form.Label>วันที่สะดวก</Form.Label>
-                      <Form.Control type="date" />
-                    </Col>
-                    <Col xs={12}>
-                      <Form.Label>ข้อความ</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        rows={4}
-                        placeholder="อยากทำบริการอะไร / อาการที่กังวล"
+              <a
+                href={phoneHref}
+                style={{ color: "#a5b4fc", textDecoration: "none" }}
+              >
+                📞 {CLINIC_INFO.phone}
+              </a>
+              <a
+                href={`mailto:${CLINIC_INFO.email}`}
+                style={{ color: "#a5b4fc", textDecoration: "none" }}
+              >
+                ✉️ {CLINIC_INFO.email}
+              </a>
+            </div>
+
+            <div
+              style={{
+                borderRadius: 18,
+                overflow: "hidden",
+                border: "1px solid rgba(30,64,175,0.7)",
+              }}
+              id="map"
+            >
+              <iframe
+                src={CLINIC_INFO.location.embedUrl}
+                title="Dental Smile Pattaya map"
+                style={{ border: 0, width: "100%", height: 260 }}
+                loading="lazy"
+                allowFullScreen
+              />
+            </div>
+          </div>
+
+          {/* Form */}
+          <div
+            style={{
+              borderRadius: 24,
+              background: "radial-gradient(circle at top, #111827, #020617)",
+              border: "1px solid rgba(55,65,81,0.95)",
+              padding: "1.4rem 1.4rem 1.1rem",
+              boxShadow: "0 20px 46px rgba(15,23,42,0.9)",
+            }}
+          >
+            <h3
+              style={{
+                margin: 0,
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#f9fafb",
+              }}
+            >
+              Quick appointment request
+            </h3>
+            <p
+              style={{
+                margin: "0.4rem 0 1.1rem",
+                fontSize: 12,
+                color: "#9ca3af",
+              }}
+            >
+              Fill in a few details and our staff will contact you back to
+              confirm.
+            </p>
+
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2,minmax(0,1fr))",
+                gap: "0.9rem 0.9rem",
+                fontSize: 12,
+              }}
+            >
+              {APPOINTMENT_FORM_FIELDS.map((field) => {
+                const isFull = ["address", "services", "message"].includes(
+                  field.name
+                );
+                const colSpanStyle = isFull
+                  ? { gridColumn: "1 / -1" }
+                  : undefined;
+
+                if (field.type === "checkbox-group") {
+                  return (
+                    <div key={field.name} style={colSpanStyle}>
+                      <label
+                        style={{
+                          display: "block",
+                          marginBottom: 4,
+                          color: "#e5e7eb",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {field.label}
+                      </label>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "0.4rem 0.9rem",
+                        }}
+                      >
+                        {field.options.map((opt) => (
+                          <label
+                            key={opt}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 4,
+                              color: "#cbd5f5",
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              name={field.name}
+                              value={opt}
+                              style={{ accentColor: "#6366f1" }}
+                            />
+                            <span>{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (field.name === "message") {
+                  return (
+                    <div key={field.name} style={colSpanStyle}>
+                      <label
+                        style={{
+                          display: "block",
+                          marginBottom: 4,
+                          color: "#e5e7eb",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {field.label}
+                      </label>
+                      <textarea
+                        id="contact-message"
+                        name={field.name}
+                        rows={3}
+                        style={{
+                          width: "100%",
+                          borderRadius: 10,
+                          border: "1px solid rgba(75,85,99,0.9)",
+                          background: "rgba(15,23,42,0.95)",
+                          color: "#e5e7eb",
+                          padding: "0.5rem 0.6rem",
+                          resize: "vertical",
+                        }}
                       />
-                    </Col>
-                  </Row>
+                    </div>
+                  );
+                }
 
-                  <div className="d-flex gap-2 mt-4">
-                    <Button
-                      type="submit"
-                      className="btn-pill fw-semibold text-white"
+                return (
+                  <div key={field.name} style={colSpanStyle}>
+                    <label
                       style={{
-                        background: "linear-gradient(90deg, #0ea5a4, #22d3ee)",
-                        border: "none",
+                        display: "block",
+                        marginBottom: 4,
+                        color: "#e5e7eb",
+                        fontWeight: 500,
                       }}
                     >
-                      ✉️ ส่งคำขอ
-                    </Button>
-                    <Button
-                      variant="outline-primary"
-                      className="btn-pill fw-semibold"
-                      href={`tel:${tel}`}
-                    >
-                      📞 โทรทันที
-                    </Button>
+                      {field.label}
+                      {field.required && (
+                        <span style={{ color: "#f97316" }}> *</span>
+                      )}
+                    </label>
+                    <input
+                      type={
+                        field.name === "email" ||
+                        field.name === "emailConfirm"
+                          ? "email"
+                          : "text"
+                      }
+                      name={field.name}
+                      required={field.required}
+                      style={{
+                        width: "100%",
+                        borderRadius: 10,
+                        border: "1px solid rgba(75,85,99,0.9)",
+                        background: "rgba(15,23,42,0.95)",
+                        color: "#e5e7eb",
+                        padding: "0.45rem 0.6rem",
+                      }}
+                    />
                   </div>
-                </Form>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+                );
+              })}
+
+              <div style={{ gridColumn: "1 / -1", marginTop: "0.4rem" }}>
+                <button
+                  type="submit"
+                  style={{
+                    borderRadius: 999,
+                    padding: "0.55rem 1.4rem",
+                    border: "none",
+                    background:
+                      "linear-gradient(135deg, #38bdf8, #6366f1, #a855f7)",
+                    color: "#f9fafb",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    boxShadow: "0 14px 34px rgba(37,99,235,0.8)",
+                  }}
+                >
+                  Submit appointment request
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

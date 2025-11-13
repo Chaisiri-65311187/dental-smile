@@ -1,50 +1,99 @@
+// src/components/SocialRail.jsx
 import React from "react";
-import { CLINIC } from "../constants/clinic";
-
-const Icon = {
-  phone: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.11 5.18 2 2 0 0 1 5.09 3h3a2 2 0 0 1 2 1.72c.12.86.31 1.7.57 2.5a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.88 6.88l1.27-1.27a2 2 0 0 1 2.11-.45c.8.26 1.64.45 2.5.57A2 2 0 0 1 22 16.92z"/>
-    </svg>
-  ),
-  facebook: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M22 12a10 10 0 1 0-11.6 9.87v-6.98H7.9V12h2.5V9.8c0-2.47 1.47-3.83 3.73-3.83 1.08 0 2.22.19 2.22.19v2.45h-1.25c-1.23 0-1.62.77-1.62 1.56V12h2.76l-.44 2.89h-2.32v6.98A10 10 0 0 0 22 12z"/>
-    </svg>
-  ),
-};
+import { CLINIC_INFO } from "../constants/clinic";
 
 export default function SocialRail() {
-  const telHref = `tel:${(CLINIC.phoneHref || CLINIC.phone || "").replace(/\s|-/g, "")}`;
-
-  // ✅ รองรับหลายคีย์ที่อาจใช้อยู่ใน CLINIC
-  const fbHref =
-    CLINIC?.links?.facebook ||
-    CLINIC?.social?.facebook ||
-    CLINIC?.facebook ||
-    null;
-
-  const items = [
-    { href: telHref, label: "โทร", icon: Icon.phone, color: "#0ea5a4" },
-    fbHref ? { href: fbHref, label: "Facebook", icon: Icon.facebook, color: "#1877f2" } : null,
-  ].filter(Boolean);
+  const phoneHref = `tel:${(CLINIC_INFO.phoneHref || CLINIC_INFO.phone)
+    .replace(/\s|-/g, "")
+    .trim()}`;
 
   return (
-    <nav className="social-rail-bottom" aria-label="Quick contact">
-      {items.map((it, i) => (
-        <a
-          key={i}
-          href={it.href}
-          target="_blank"
-          rel="noreferrer"
-          className="social-btn-pair"
-          style={{ background: it.color }}
-          aria-label={it.label}
-        >
-          {it.icon}
-          <span className="social-label">{it.label}</span>
-        </a>
-      ))}
-    </nav>
+    <div
+      className="ds-social-rail"
+      style={{
+        position: "fixed",
+        right: 16,
+        bottom: 80,
+        zIndex: 40,
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+      }}
+    >
+      {/* phone */}
+      <a
+        href={phoneHref}
+        title="Call clinic"
+        style={{
+          width: 44,
+          height: 44,
+          borderRadius: 999,
+          background:
+            "radial-gradient(circle, #22c55e, #16a34a 60%, #15803d)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#ecfdf5",
+          textDecoration: "none",
+          boxShadow: "0 12px 26px rgba(22,163,74,0.85)",
+          fontSize: 22,
+        }}
+      >
+        📞
+      </a>
+
+      {/* facebook */}
+      <a
+        href={CLINIC_INFO.links?.facebook}
+        target="_blank"
+        rel="noreferrer"
+        title="Facebook"
+        style={{
+          width: 44,
+          height: 44,
+          borderRadius: 999,
+          background:
+            "radial-gradient(circle, #2563eb, #1d4ed8 60%, #1e3a8a)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#eff6ff",
+          textDecoration: "none",
+          boxShadow: "0 12px 26px rgba(37,99,235,0.85)",
+          fontSize: 22,
+        }}
+      >
+        f
+      </a>
+
+      {/* scroll to contact */}
+      <button
+        type="button"
+        title="Appointment form"
+        onClick={() => {
+          const el = document.getElementById("contact");
+          if (!el) return;
+          const y = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }}
+        style={{
+          width: 44,
+          height: 44,
+          borderRadius: 999,
+          border: "none",
+          background:
+            "radial-gradient(circle, #38bdf8, #6366f1 60%, #1d4ed8)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#eff6ff",
+          boxShadow: "0 12px 26px rgba(37,99,235,0.85)",
+          cursor: "pointer",
+          fontSize: 22,
+        }}
+      >
+        ✉️
+      </button>
+    </div>
   );
 }

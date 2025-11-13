@@ -1,99 +1,195 @@
+// src/components/Team.jsx
 import React from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { useReveal } from "../hooks/useReveal";
+import { STAFF } from "../data/staff";
 
-const STAFF = [
-  { name: "Dr. Patcharin (Dr. Cherry)", role: "Prosthodontist & Implant", img: "/placeholders/doctor-cherry.jpg" },
-  { name: "Dr. Pabhinvitch (Dr. Tob)", role: "Orthodontist", img: "/placeholders/doctor-tob.jpg" },
-  { name: "Dr. Assawinee (Dr. Ae)", role: "Periodontist", img: "/placeholders/doctor-ae.jpg" },
-  { name: "Dr. Surpun (Dr. Nung)", role: "Endodontist", img: "/placeholders/doctor-nung.jpg" },
-  { name: "Dr. Woradet (Dr. Boy)", role: "Advanced General Dentistry", img: "/placeholders/doctor-boy.jpg" },
-  { name: "Dr. Chaichan (Dr. Gui)", role: "Advanced General Dentistry", img: "/placeholders/doctor-gui.jpg" },
-];
+function getDoctorImage(doc) {
+  if (doc.img) return doc.img;
+  const nickSlug =
+    doc.nickname
+      ?.toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "") || "doctor";
+  return `/staff/${nickSlug}.jpg`;
+}
 
-const STAFF_URL = "https://www.dentalsmilepattaya.com/staff.html";
+const FALLBACK_IMG =
+  "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop";
 
 export default function Team() {
-  useReveal();
+  // ✅ เรียงตาม order ก่อน (ถ้าไม่มี order จะไปอยู่ท้ายๆ)
+  const orderedStaff = [...STAFF].sort((a, b) => {
+    const ao = a.order ?? 999;
+    const bo = b.order ?? 999;
+    return ao - bo;
+  });
 
   return (
     <section
       id="team"
-      className="section-pad"
       style={{
-        background:
-          "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%), radial-gradient(circle at 10% 0%, rgba(14,165,164,.08), transparent 60%)",
+        background: "#f9fafb",
+        color: "#0f172a",
+        padding: "3.5rem 1.25rem",
       }}
     >
-      <Container>
-        {/* ===== หัวเรื่องหลัก ===== */}
-        <div className="text-center mb-5 reveal show">
-          <div className="icon-ring mx-auto mb-3">👩‍⚕️</div>
-          <h2 className="fw-bold display-6 text-ink mb-2">ทีมทันตแพทย์ของเรา</h2>
-          <div
+      <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "2rem",
+          }}
+        >
+          <div style={{ fontSize: 32, marginBottom: 8 }}>👩‍⚕️🧑‍⚕️</div>
+          <h2
             style={{
-              width: "90px",
-              height: "4px",
-              borderRadius: "3px",
-              background: "linear-gradient(90deg, #0ea5a4, #22d3ee, #0ea5a4)",
-              margin: "0 auto 1rem",
-              boxShadow: "0 0 10px rgba(14,165,164,.4)",
+              margin: 0,
+              fontSize: "1.9rem",
+              fontWeight: 800,
+              letterSpacing: "-0.04em",
+              color: "#020617",
             }}
-          />
-          <p className="text-ink-2 fs-5">
-            ทีมทันตแพทย์เฉพาะทางมากประสบการณ์ ดูแลอย่างอ่อนโยน  
-            พร้อมเทคโนโลยีการรักษาทันสมัย มุ่งเน้นผลลัพธ์ระยะยาว
+          >
+            Meet our doctors
+          </h2>
+          <p
+            style={{
+              marginTop: "0.5rem",
+              fontSize: 14,
+              color: "#6b7280",
+            }}
+          >
+            Board-certified specialists with international training and gentle
+            bedside manners.
           </p>
         </div>
 
-        {/* ===== การ์ดทีมทันตแพทย์ ===== */}
-        <Row className="g-4 reveal-stagger">
-          {STAFF.slice(0, 6).map((d, i) => (
-            <Col md={4} sm={6} xs={12} key={i}>
-              <Card
-                className="team-card h-100 text-center border-0"
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))",
+            gap: "1.4rem",
+          }}
+        >
+          {orderedStaff.map((doc) => {
+            const imgSrc = getDoctorImage(doc);
+            return (
+              <article
+                key={doc.name}
+                className="doctor-card hover-lift"
                 style={{
                   borderRadius: 24,
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85))",
-                  backdropFilter: "blur(8px)",
-                  WebkitBackdropFilter: "blur(8px)",
+                  background: "#ffffff",
+                  border: "1px solid rgba(148,163,184,0.35)",
+                  boxShadow: "0 16px 36px rgba(15,23,42,0.06)",
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
                 }}
               >
-                {/* วงกลมภาพหมอ */}
-                <div className="team-img-wrapper mx-auto mt-4">
+                {/* รูปหมอ */}
+                <div
+                  className="doctor-card-img"
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    paddingTop: "70%", // อัตราส่วนรูป
+                    overflow: "hidden",
+                  }}
+                >
                   <img
-                    src={d.img}
-                    alt={d.name}
-                    className="team-img"
+                    src={imgSrc}
+                    alt={doc.name}
                     onError={(e) => {
-                      e.currentTarget.src =
-                        "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop";
+                      e.currentTarget.src = FALLBACK_IMG;
+                    }}
+                    className="doctor-card-img-inner"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
                     }}
                   />
+                  <div
+                    style={{
+                      position: "absolute",
+                      insetInline: 0,
+                      bottom: 0,
+                      height: "40%",
+                      background:
+                        "linear-gradient(to top, rgba(15,23,42,0.7), transparent)",
+                    }}
+                  />
+                  {doc.nickname && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 12,
+                        bottom: 10,
+                        padding: "0.15rem 0.6rem",
+                        borderRadius: 999,
+                        fontSize: 11,
+                        background:
+                          "linear-gradient(135deg,#3b82f6,#6366f1,#a855f7)",
+                        color: "#f9fafb",
+                        boxShadow: "0 10px 24px rgba(37,99,235,0.7)",
+                      }}
+                    >
+                      {doc.nickname}
+                    </div>
+                  )}
                 </div>
 
-                <Card.Body className="pb-4">
-                  <Card.Title className="fw-semibold text-ink mt-3 mb-1">{d.name}</Card.Title>
-                  <Card.Text className="text-ink-2 small">{d.role}</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+                {/* ข้อมูลหมอ */}
+                <div
+                  style={{
+                    padding: "0.9rem 1.05rem 0.85rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.45rem",
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 700,
+                        color: "#020617",
+                      }}
+                    >
+                      {doc.name}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 12,
+                        color: "#1d4ed8",
+                        marginTop: 2,
+                      }}
+                    >
+                      {doc.specialty}
+                    </div>
+                  </div>
 
-        <div className="text-center mt-5 reveal">
-          <Button
-            variant="outline-primary"
-            className="btn-pill px-4 fw-semibold"
-            href={STAFF_URL}
-            target="_blank"
-            rel="noreferrer"
-          >
-            ดูทีมแพทย์ทั้งหมด →
-          </Button>
+                  <ul
+                    style={{
+                      margin: 0,
+                      padding: "0 0 0 1.1rem",
+                      fontSize: 12,
+                      color: "#6b7280",
+                    }}
+                  >
+                    {(doc.education || []).slice(0, 3).map((edu, idx) => (
+                      <li key={idx}>{edu}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            );
+          })}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
