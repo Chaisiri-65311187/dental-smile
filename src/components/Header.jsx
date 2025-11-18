@@ -65,11 +65,11 @@ export default function Header({ lang = "en", toggleLang }) {
         style={{
           maxWidth: "1120px",
           margin: "0 auto",
-          padding: "0.55rem 1.25rem",
+          padding: "0.8rem 1.75rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: "1.5rem",
+          gap: "rem", 
         }}
       >
         {/* Logo / Brand */}
@@ -119,7 +119,6 @@ export default function Header({ lang = "en", toggleLang }) {
                 color: "#6b7280",
                 fontWeight: 400,
                 maxWidth: 260,
-                whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
                 overflow: "hidden",
               }}
@@ -136,7 +135,7 @@ export default function Header({ lang = "en", toggleLang }) {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "1.5rem",
+            gap: "1.8rem", // ⬅ เพิ่มช่องไฟระหว่างเมนูกับโซนปุ่ม
             fontSize: 14,
           }}
         >
@@ -145,7 +144,7 @@ export default function Header({ lang = "en", toggleLang }) {
               listStyle: "none",
               display: "flex",
               alignItems: "center",
-              gap: "0.9rem",
+              gap: "1.1rem", // ⬅ เมนูแต่ละอันห่างขึ้น
               margin: 0,
               padding: 0,
             }}
@@ -158,7 +157,9 @@ export default function Header({ lang = "en", toggleLang }) {
                   className="nav-link-modern nav-link-animate"
                   style={{
                     textDecoration: "none",
-                    paddingBlock: 6,
+                    padding: "0.35rem 0.7rem", // ⬅ เพิ่ม padding รอบตัวหนังสือ
+                    borderRadius: 999,
+                    letterSpacing: "0.03em", // ⬅ ตัวอักษรห่างกันขึ้นนิดหน่อย
                   }}
                 >
                   {item.label}
@@ -173,27 +174,10 @@ export default function Header({ lang = "en", toggleLang }) {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "0.6rem",
-              marginLeft: "0.5rem",
+              gap: "0.7rem",
+              marginLeft: "0.25rem",
             }}
           >
-            <a
-              href={phoneHref}
-              className="nav-phone"
-              style={{
-                fontSize: 13,
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                gap: 4,
-              }}
-            >
-              <span role="img" aria-label="phone">
-                📞
-              </span>
-              <span>{CLINIC_INFO.phone}</span>
-            </a>
-
             <a
               href="#contact"
               onClick={(e) => handleScrollTo(e, "#contact")}
@@ -201,31 +185,12 @@ export default function Header({ lang = "en", toggleLang }) {
               style={{
                 fontSize: 13,
                 fontWeight: 600,
-                padding: "0.4rem 1rem",
+                padding: "0.4rem 1.1rem",
                 whiteSpace: "nowrap",
               }}
             >
               Book appointment
             </a>
-
-            {/* Lang toggle */}
-            {typeof toggleLang === "function" && (
-              <button
-                onClick={toggleLang}
-                className="lang-switch"
-                style={{
-                  padding: "0.32rem 0.7rem",
-                  borderRadius: 999,
-                  border: "1px solid rgba(148,163,184,0.45)",
-                  background: "rgba(255,255,255,0.7)",
-                  fontSize: 12,
-                  cursor: "pointer",
-                  backdropFilter: "blur(6px)",
-                }}
-              >
-                {lang === "en" ? "TH" : "EN"}
-              </button>
-            )}
           </div>
         </nav>
       </div>

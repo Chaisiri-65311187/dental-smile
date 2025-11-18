@@ -2,7 +2,6 @@
 
 export const CLINIC_INFO = {
   name: "Dental Smile Pattaya",
-  tagline: "Honest Dentist in Pattaya over 18 years",
 
   movedNotice: {
     en: "We moved to new office since April 2025.",

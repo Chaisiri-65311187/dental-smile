@@ -98,7 +98,7 @@ export default function Hero() {
                 }}
               />
               <span style={{ color: "#0f172a", fontWeight: 500 }}>
-                Honest dentist in Pattaya • 18+ years
+                dentist in Pattaya 
               </span>
             </div>
 
