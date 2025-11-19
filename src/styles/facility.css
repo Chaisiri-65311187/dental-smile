@@ -1,0 +1,143 @@
+/* ================================================
+   Facility Section – Premium Soft Dental UI
+   ================================================ */
+
+/* Section BG */
+#facility,
+.facility-section {
+  background: linear-gradient(
+    180deg,
+    #f0f9ff 0%,
+    #eef7fd 40%,
+    #ffffff 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative glow */
+.facility-section::before,
+.facility-section::after {
+  content: "";
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.32;
+}
+
+.facility-section::before {
+  background: #a5f3fc;
+  top: -100px;
+  left: -80px;
+}
+
+.facility-section::after {
+  background: #bbf7d0;
+  bottom: -120px;
+  right: -60px;
+}
+
+/* Title + subtitle */
+.facility-title {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 2rem;
+}
+
+.facility-sub {
+  color: #475569;
+  max-width: 520px;
+  margin-inline: auto;
+  font-size: 0.95rem;
+}
+
+/* =====================================================
+   Facility cards with glass + hover animation
+   ===================================================== */
+
+.facility-card {
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 2rem 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 16px 44px rgba(15, 23, 42, 0.14),
+    0 0 0 1px rgba(148, 163, 184, 0.16);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.facility-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 22px 60px rgba(56, 189, 248, 0.28),
+    0 0 0 1px rgba(191, 219, 254, 0.9);
+}
+
+/* Icon */
+.facility-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #0ea5e9;
+  filter: drop-shadow(0 6px 12px rgba(14, 165, 233, 0.3));
+}
+
+/* Title */
+.facility-card-title {
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+/* List */
+.facility-card-list {
+  padding-left: 1.1rem;
+  margin: 0;
+}
+
+.facility-card-list li {
+  color: #475569;
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+/* =====================================================
+   Soft Fade & Slide Animations
+   ===================================================== */
+
+.fade-up-soft {
+  opacity: 0;
+  animation: fadeUpSoft 0.8s ease forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.15s;
+}
+
+.delay-2 {
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeUpSoft {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 575.98px) {
+  .facility-card {
+    padding: 1.6rem 1.2rem;
+  }
+}

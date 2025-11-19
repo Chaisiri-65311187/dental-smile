@@ -1,99 +1,66 @@
 // src/components/SocialRail.jsx
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CLINIC_INFO } from "../constants/clinic";
+import "../styles/socialrail.css";
 
 export default function SocialRail() {
-  const phoneHref = `tel:${(CLINIC_INFO.phoneHref || CLINIC_INFO.phone)
+  const [isVisible, setIsVisible] = useState(false);
+  const railRef = useRef(null);
+  
+  const phoneHref = `tel:${(CLINIC_INFO.phoneHref || CLINIC_INFO.phone || "")
     .replace(/\s|-/g, "")
     .trim()}`;
+  const mailHref = `mailto:${CLINIC_INFO.email || ""}`;
+
+  // Hook for simple reveal animation (triggered after mount)
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setIsVisible(true);
+    }, 500); // 0.5 second delay to ensure the rail slides in after the page loads
+    return () => clearTimeout(t);
+  }, []);
 
   return (
+    // ใช้ social-rail-bottom และเพิ่ม class สำหรับ animation
     <div
-      className="ds-social-rail"
-      style={{
-        position: "fixed",
-        right: 16,
-        bottom: 80,
-        zIndex: 40,
-        display: "flex",
-        flexDirection: "column",
-        gap: 10,
-      }}
+      ref={railRef}
+      className={`social-rail-bottom d-none d-md-flex ${isVisible ? 'social-rail-visible' : ''}`}
     >
-      {/* phone */}
+      {/* Call Button (Teal/Cyan Gradient) */}
+      {CLINIC_INFO.phone && (
+        <a
+          href={phoneHref}
+          className="social-btn-pair social-call"
+          aria-label="Call Dental Smile Pattaya"
+        >
+          <span className="icon-ring">📞</span>
+          <span className="social-label d-none d-lg-inline">Call us now</span>
+        </a>
+      )}
+      
+      {/* Appointment/Form Button (Cyan/Teal Gradient) */}
       <a
-        href={phoneHref}
-        title="Call clinic"
-        style={{
-          width: 44,
-          height: 44,
-          borderRadius: 999,
-          background:
-            "radial-gradient(circle, #22c55e, #16a34a 60%, #15803d)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#ecfdf5",
-          textDecoration: "none",
-          boxShadow: "0 12px 26px rgba(22,163,74,0.85)",
-          fontSize: 22,
-        }}
+        href="#contact"
+        className="social-btn-pair social-appt"
+        aria-label="Book appointment"
       >
-        📞
+        <span className="icon-ring">📝</span>
+        <span className="social-label d-none d-lg-inline">Appointment</span>
       </a>
 
-      {/* facebook */}
-      <a
-        href={CLINIC_INFO.links?.facebook}
-        target="_blank"
-        rel="noreferrer"
-        title="Facebook"
-        style={{
-          width: 44,
-          height: 44,
-          borderRadius: 999,
-          background:
-            "radial-gradient(circle, #2563eb, #1d4ed8 60%, #1e3a8a)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#eff6ff",
-          textDecoration: "none",
-          boxShadow: "0 12px 26px rgba(37,99,235,0.85)",
-          fontSize: 22,
-        }}
-      >
-        f
-      </a>
-
-      {/* scroll to contact */}
-      <button
-        type="button"
-        title="Appointment form"
-        onClick={() => {
-          const el = document.getElementById("contact");
-          if (!el) return;
-          const y = el.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ top: y, behavior: "smooth" });
-        }}
-        style={{
-          width: 44,
-          height: 44,
-          borderRadius: 999,
-          border: "none",
-          background:
-            "radial-gradient(circle, #38bdf8, #6366f1 60%, #1d4ed8)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#eff6ff",
-          boxShadow: "0 12px 26px rgba(37,99,235,0.85)",
-          cursor: "pointer",
-          fontSize: 22,
-        }}
-      >
-        ✉️
-      </button>
+      {/* Facebook Button (Blue/Indigo Gradient) */}
+      {CLINIC_INFO.links.facebook && (
+        <a
+          href={CLINIC_INFO.links.facebook}
+          target="_blank"
+          rel="noreferrer"
+          className="social-btn-pair social-fb"
+          aria-label="Facebook Dental Smile Pattaya"
+        >
+          <span className="icon-ring">f</span>
+          <span className="social-label d-none d-lg-inline">Facebook</span>
+        </a>
+      )}
     </div>
   );
 }

@@ -11,6 +11,7 @@ import SocialRail from "./components/SocialRail.jsx";
 import Footer from "./components/Footer.jsx";
 import { LanguageProvider, useLang } from "./contexts/LanguageContext";
 
+
 // ⭐ Wrapper เพื่อดึง lang + toggleLang ไปส่งเข้า Header
 function HeaderWithLang() {
   const { lang, switchLang } = useLang();

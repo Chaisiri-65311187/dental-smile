@@ -1,280 +1,216 @@
 // src/components/Services.jsx
 import React from "react";
-import { SERVICES } from "../data/services";
+import "../styles/services.css";
 
-function formatPrice(item) {
-  if (item.priceMin == null && item.priceMax == null) {
-    return item.note || "By report";
-  }
-  if (item.priceMin === item.priceMax) {
-    return `${item.priceMin.toLocaleString()} THB`;
-  }
-  return `${item.priceMin.toLocaleString()}–${item.priceMax.toLocaleString()} THB`;
-}
-
-// icon per category
-const SERVICE_ICON_BY_CATEGORY = {
-  "General Dentistry": "🦷",
-  Cosmetic: "✨",
-  Restoration: "🛠️",
-  "Dental Restoration": "🛠️",
-  Veneer: "😁",
-  Implant: "📌",
-  "All-on-4 Implants": "🧩",
-  Prosthodontics: "🧬",
-  Endodontics: "🧪",
-  Periodontics: "🌿",
-  Orthodontics: "📏",
-};
-
-function getServiceIcon(svc) {
-  return (
-    SERVICE_ICON_BY_CATEGORY[svc.category] ||
-    SERVICE_ICON_BY_CATEGORY[svc.name] ||
-    "🦷"
-  );
-}
+const TREATMENT_GROUPS = [
+  {
+    name: "General Dentistry & Cleaning",
+    description:
+      "Routine cleaning, fillings, and extractions to maintain good oral health.",
+    items: [
+      {
+        name: "Dental Cleaning & Scaling",
+        price: "900–1,500 THB",
+        note: "Cleaning & Scaling / person",
+      },
+      {
+        name: "Cleaning & Scaling with Airflow",
+        price: "1,700–2,200 THB",
+        note: "With Airflow / person",
+      },
+      {
+        name: "Dental Filling – Amalgam",
+        price: "800–1,700 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "Dental Filling – White Composite",
+        price: "900–1,800 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "Tooth Extraction",
+        price: "900–1,700 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "Impacted Wisdom Tooth Extraction",
+        price: "2,000–5,000 THB",
+        note: "/ tooth",
+      },
+    ],
+  },
+  {
+    name: "Teeth Whitening",
+    description:
+      "In-clinic and at-home whitening options for brighter smiles.",
+    items: [
+      { name: "LED Cool Light", price: "3,900 THB", note: "/ person" },
+      { name: "Laser + Cleaning", price: "5,500 THB", note: "/ person" },
+      { name: "Zoom 2 + Cleaning", price: "9,500 THB", note: "/ person" },
+      { name: "At-Home Whitening", price: "4,500 THB", note: "/ person" },
+    ],
+  },
+  {
+    name: "Crown, Bridge & Veneer",
+    description:
+      "Cosmetic and restorative treatments to rebuild and improve your smile.",
+    items: [
+      {
+        name: "Crown – Porcelain fused to standard metal",
+        price: "9,000 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "Crown – All Ceramic (Empress Emax)",
+        price: "12,500 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "Crown – Zirconia",
+        price: "15,000 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "Bridge – Porcelain fused to standard metal",
+        price: "27,000 THB",
+        note: "/ 3 teeth",
+      },
+      {
+        name: "Bridge – All Ceramic (Empress Emax)",
+        price: "37,500 THB",
+        note: "/ 3 teeth",
+      },
+      {
+        name: "Porcelain Veneer (Empress Emax)",
+        price: "12,500 THB",
+        note: "/ tooth",
+      },
+    ],
+  },
+  {
+    name: "Inlay / Onlay & Denture",
+    description:
+      "Tooth-colored inlays/onlays and removable dentures for missing teeth.",
+    items: [
+      {
+        name: "Composite Inlay / Onlay",
+        price: "3,000–4,000 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "Removable Denture – Full",
+        price: "18,000–20,000 THB",
+        note: "/ jaw",
+      },
+      {
+        name: "Removable Denture – Partial",
+        price: "10,000–18,000 THB",
+        note: "/ jaw",
+      },
+    ],
+  },
+  {
+    name: "Implant & Advanced Treatment",
+    description:
+      "Dental implants and root canal therapy for long-term solutions.",
+    items: [
+      {
+        name: "Single Implant with zirconia crown",
+        price: "45,000 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "All-on-4 one-trip implant",
+        price: "By report",
+        note: "/ jaw",
+      },
+      {
+        name: "Root Canal – Incisor, Canine",
+        price: "6,000–7,000 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "Root Canal – Premolar",
+        price: "7,000–9,000 THB",
+        note: "/ tooth",
+      },
+      {
+        name: "Root Canal – Molar",
+        price: "9,000–12,000 THB",
+        note: "/ tooth",
+      },
+    ],
+  },
+  {
+    name: "Gum & Orthodontics",
+    description:
+      "Deep cleaning and braces to treat gum disease and misaligned teeth.",
+    items: [
+      {
+        name: "Root Planing & Deep Cleaning",
+        price: "By report",
+        note: "/ quadrant",
+      },
+      {
+        name: "Metal braces",
+        price: "35,000–40,000 THB",
+        note: "/ person",
+      },
+    ],
+  },
+];
 
 export default function Services() {
   return (
-    <section
-      id="services"
-      style={{
-        background: "#f3f4f6",
-        padding: "3.5rem 1.25rem",
-        color: "#0f172a",
-      }}
-    >
-      <div style={{ maxWidth: 1120, margin: "0 auto" }}>
-        {/* หัวข้อ Section */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            gap: "1rem",
-            alignItems: "flex-end",
-            marginBottom: "1.8rem",
-          }}
-          className="ds-section-header"
-        >
+    <section id="services" className="py-5 bg-white">
+      <div className="container">
+        {/* Title */}
+        <div className="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
           <div>
-            <h2
-              style={{
-                margin: 0,
-                fontSize: "1.9rem",
-                fontWeight: 800,
-                letterSpacing: "-0.04em",
-                color: "#020617",
-              }}
-            >
-              Treatments & pricing
-            </h2>
-            <p
-              style={{
-                marginTop: "0.4rem",
-                fontSize: 14,
-                color: "#6b7280",
-              }}
-            >
-              Transparent prices for international patients, with gentle and
-              modern care.
+            <h2 className="h2 fw-bold text-ink mb-1">Treatments &amp; pricing</h2>
+            <p className="small text-ink-3 mb-0">
+              Transparent prices for international patients with gentle, modern
+              care.
             </p>
           </div>
-          <div
-            style={{
-              fontSize: 12,
-              color: "#4b5563",
-              background: "#e5e7eb",
-              borderRadius: 999,
-              padding: "0.25rem 0.85rem",
-              border: "1px solid rgba(148,163,184,0.6)",
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-            }}
-            className="ds-chip"
-          >
+          <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white border small text-ink-2 glass">
             <span>💡</span>
             <span>Prices in Thai Baht (THB)</span>
           </div>
         </div>
 
-        {/* การ์ดบริการ */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
-            gap: "1.4rem",
-          }}
-        >
-          {SERVICES.map((svc) => {
-            const icon = getServiceIcon(svc);
-            return (
-              <article
-                key={svc.slug}
-                className="service-card hover-lift"
-                style={{
-                  background: "#ffffff",
-                  borderRadius: 20,
-                  padding: "1.4rem 1.35rem 1.2rem",
-                  border: "1px solid rgba(148,163,184,0.35)",
-                  boxShadow: "0 18px 40px rgba(15,23,42,0.06)",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.8rem",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                {/* ไอคอน + หมวด */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: "0.8rem",
-                  }}
-                >
-                  <div
-                    className="service-icon"
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "999px",
-                      background:
-                        "radial-gradient(circle at 30% 0%, #e0f2fe, #bfdbfe)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: 22,
-                    }}
-                  >
-                    <span aria-hidden>{icon}</span>
-                  </div>
-                  <span
-                    style={{
-                      fontSize: 11,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.12em",
-                      color: "#6b7280",
-                      background: "#e5e7eb",
-                      padding: "0.1rem 0.6rem",
-                      borderRadius: 999,
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {svc.category}
-                  </span>
-                </div>
+        {/* Cards */}
+        <div className="row g-4">
+          {TREATMENT_GROUPS.map((group) => (
+            <div className="col-md-6 col-lg-4" key={group.name}>
+              <article className="service-card h-100 rounded-4 border bg-light-subtle p-3 p-md-4 d-flex flex-column">
+                <h3 className="h5 fw-semibold text-ink mb-1">{group.name}</h3>
+                <p className="small text-ink-3 mb-3">{group.description}</p>
 
-                {/* ชื่อ + คำอธิบาย */}
-                <div>
-                  <h3
-                    style={{
-                      margin: "0 0 0.25rem",
-                      fontSize: 16,
-                      fontWeight: 700,
-                      color: "#111827",
-                    }}
-                  >
-                    {svc.name}
-                  </h3>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: 13,
-                      color: "#6b7280",
-                    }}
-                  >
-                    {svc.description}
-                  </p>
-                </div>
-
-                {/* รายการย่อย + ราคา */}
-                <div
-                  style={{
-                    marginTop: "0.5rem",
-                    borderRadius: 14,
-                    background: "#f9fafb",
-                    border: "1px solid rgba(209,213,219,0.9)",
-                    padding: "0.65rem 0.75rem",
-                  }}
-                >
-                  {svc.items.slice(0, 3).map((item, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "baseline",
-                        gap: "0.75rem",
-                        fontSize: 12,
-                        padding: "0.22rem 0",
-                      }}
-                    >
-                      <div style={{ color: "#111827" }}>{item.item}</div>
-                      <div
-                        style={{
-                          fontWeight: 600,
-                          color:
-                            item.priceMin != null ? "#1d4ed8" : "#ea580c",
-                        }}
-                      >
-                        {formatPrice(item)}
+                <ul className="list-unstyled small text-ink-3 flex-grow-1 mb-3">
+                  {group.items.map((item) => (
+                    <li key={item.name} className="mb-2">
+                      <div className="d-flex justify-content-between gap-2">
+                        <span>{item.name}</span>
+                        <span className="fw-semibold text-ink">
+                          {item.price}
+                        </span>
                       </div>
-                    </div>
+                      {item.note && (
+                        <div className="tiny text-ink-3">{item.note}</div>
+                      )}
+                    </li>
                   ))}
+                </ul>
 
-                  {svc.items.length > 3 && (
-                    <div
-                      style={{
-                        marginTop: 4,
-                        fontSize: 11,
-                        color: "#9ca3af",
-                      }}
-                    >
-                      + {svc.items.length - 3} more options
-                    </div>
-                  )}
+                <div className="tiny text-ink-3">
+                  * Final treatment plan and fees depend on your individual
+                  condition after examination.
                 </div>
-
-                {/* ปุ่มไปฟอร์ม */}
-                <button
-                  type="button"
-                  style={{
-                    marginTop: "0.75rem",
-                    alignSelf: "flex-start",
-                    borderRadius: 999,
-                    padding: "0.4rem 0.9rem",
-                    border: "none",
-                    background:
-                      "linear-gradient(135deg,#3b82f6,#6366f1,#8b5cf6)",
-                    color: "#f9fafb",
-                    fontSize: 12,
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    boxShadow: "0 12px 34px rgba(59,130,246,0.35)",
-                  }}
-                  onClick={() => {
-                    const msg = `I would like to ask about: ${svc.name}`;
-                    const el = document.getElementById("contact-message");
-                    if (el) el.value = msg;
-                    const contactEl = document.getElementById("contact");
-                    if (contactEl) {
-                      const y =
-                        contactEl.getBoundingClientRect().top +
-                        window.scrollY -
-                        80;
-                      window.scrollTo({ top: y, behavior: "smooth" });
-                    }
-                  }}
-                >
-                  Ask about this treatment →
-                </button>
               </article>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>

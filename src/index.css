@@ -1,5 +1,5 @@
 /* ===========================
-   💎 Base Reset & Theme Setup
+   Base Reset & Theme
 =========================== */
 * {
   box-sizing: border-box;
@@ -19,12 +19,6 @@ body {
   line-height: 1.6;
 }
 
-@media (max-width: 991.98px) {
-  body {
-    /* mobile overrides here (if needed) */
-  }
-}
-
 #root {
   min-height: 100%;
   display: block;
@@ -40,31 +34,21 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Variables (teal modern tone) */
+/* Theme variables */
 :root {
   --ds-primary: #0ea5a4;
   --ds-primary-600: #0b8b8b;
-  --ds-ink: #0f172a;
-  --ds-ink-2: #334155;
 }
 
 /* ===========================
-   💎 Reusable Helpers
+   Helpers
 =========================== */
 .section-pad {
   padding: 72px 0;
 }
 
-.text-ink {
-  color: var(--ds-ink);
-}
-
-.text-ink-2 {
-  color: var(--ds-ink-2);
-}
-
-.text-ink-3 {
-  color: #6b7280;
+.section-fade {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
 }
 
 .object-fit-cover {
@@ -73,11 +57,9 @@ a:hover {
   object-fit: cover;
 }
 
-.bg-soft-ink {
-  background: rgba(15, 23, 42, 0.06);
-}
-
-/* Buttons & Cards */
+/* ===========================
+   Buttons
+=========================== */
 .btn-pill {
   border-radius: 999px !important;
   padding-inline: 18px;
@@ -105,44 +87,17 @@ a:hover {
   color: #fff;
 }
 
-.card-soft {
-  border: 0;
-  border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(2, 8, 23, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-soft:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(2, 8, 23, 0.12);
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-}
-
 /* ===========================
-   💎 Reveal Animation
+   Reveal Animation (Team/Sections)
 =========================== */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: all 0.6s ease;
-}
-
-.reveal.show {
-  opacity: 1;
-  transform: none;
-}
-
+.reveal,
 .reveal-stagger > * {
   opacity: 0;
   transform: translateY(16px);
   transition: all 0.6s ease;
 }
 
+.reveal.show,
 .reveal-stagger.show > * {
   opacity: 1;
   transform: none;
@@ -160,239 +115,42 @@ a:hover {
   transition-delay: 0.24s;
 }
 
-.reveal-stagger.show > *:nth-child(5) {
-  transition-delay: 0.32s;
-}
-
-.reveal-stagger.show > *:nth-child(6) {
-  transition-delay: 0.4s;
-}
-
 /* ===========================
-   💎 Hero Section (BG + Blur)
+   Hero
 =========================== */
-.hero-wrap {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-@supports (height: 100dvh) {
-  .hero-wrap {
-    min-height: 100dvh;
-  }
-}
-
-/* รูปพื้นหลัง */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #000;
-  transform: scale(1.03);
-  animation: heroZoom 1.4s ease both;
-  z-index: 0;
-  filter: brightness(0.92); /* ลดแสงเล็กน้อยให้ตัวหนังสือชัด */
-}
-
-@keyframes heroZoom {
-  from {
-    transform: scale(1.08);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-/* เลเยอร์เบลอจริง */
-.hero-blur-layer {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: blur(10px);
-  transform: scale(1.05); /* กันเห็นขอบเบลอ */
-  z-index: 1;
-  opacity: 0.6;
-}
-
-/* Gradient ทับให้อ่านง่าย */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
+.hero-section {
   background:
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.55)),
-    radial-gradient(70% 60% at 50% 25%, rgba(0, 0, 0, 0.25), transparent 60%);
-  z-index: 2;
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(45, 212, 191, 0.16), transparent 55%),
+    #f8fafc;
+  will-change: transform, opacity;
 }
 
-/* กล่องกระจก (hero) */
-.hero-glass {
-  max-width: 980px;
-  margin-inline: auto;
-  padding: clamp(20px, 4vw, 36px);
-  border-radius: 24px;
-  background: rgba(15, 23, 42, 0.22); /* fallback */
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+/* gradient text */
+.text-gradient-primary {
+  background-image: linear-gradient(120deg, #0ea5e9, #14b8a6, #22c55e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-@media (max-width: 768px) {
-  .hero-glass .display-5,
-  .hero-glass .display-4 {
-    font-size: 2rem;
-  }
+/* status dot */
+.hero-status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #22c55e;
+  animation: pulseGlow 1.7s ease-in-out infinite;
 }
 
-/* Hero แบบพื้นหลังคลีน (ไม่ใช้รูปเป็น BG) */
-.hero-wrap.hero-clean {
-  background: radial-gradient(
-    circle at top left,
-    #f4f8ff 0,
-    #ffffff 45%,
-    #f9fafb 100%
-  );
-  display: flex;
-  align-items: center;
+/* keep image aspect in hero card */
+.hero-card .object-fit-cover {
+  object-fit: cover;
 }
 
 /* ===========================
-   💎 Hero Photo Card หรู
-=========================== */
-/* shell กรอบไล่เฉด */
-.hero-photo-shell {
-  max-width: 520px;
-  margin-left: auto;
-  border-radius: 28px;
-  padding: 2px;
-  background: radial-gradient(
-    circle at 0 0,
-    #22d3ee,
-    #0ea5a4 40%,
-    transparent 70%
-  );
-}
-
-.hero-photo-card-inner {
-  border-radius: 26px;
-  background: linear-gradient(145deg, #ffffff, #f9fafb);
-  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.25);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  padding: 1.6rem 1.7rem 1.4rem;
-  position: relative;
-}
-
-/* รูปหลัก */
-.hero-photo-main {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 1.3rem;
-}
-
-.hero-photo-main img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 16 / 9;
-  transform: scale(1.02);
-}
-
-/* gradient ท้ายภาพให้ mood พรีเมียม */
-.hero-photo-overlay {
-  position: absolute;
-  inset: 45% 0 0;
-  background: linear-gradient(to top, rgba(15, 23, 42, 0.85), transparent);
-}
-
-/* badge ชื่อคลินิก */
-.hero-photo-chip {
-  position: absolute;
-  left: 16px;
-  top: 16px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  background: rgba(15, 23, 42, 0.84);
-  color: #e5f9ff;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4);
-}
-
-/* rating ลอยมุมล่างขวา */
-.hero-photo-rating {
-  position: absolute;
-  right: 16px;
-  bottom: 14px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  display: inline-flex;
-  align-items: center;
-  background: rgba(15, 23, 42, 0.92);
-  color: #facc15;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.6);
-}
-
-/* ลบ overlay จาก img-zoom เดิมที่อาจทำให้ดูดรอป */
-.hero-photo-shell .img-zoom img {
-  transition: transform 0.7s ease;
-}
-
-.hero-photo-shell .img-zoom:hover img {
-  transform: scale(1.07);
-}
-
-/* การ์ดรูปคลินิก (ตัวเดิมให้ยังใช้ได้) */
-.hero-photo-card {
-  max-width: 480px;
-  border-radius: 24px;
-}
-
-.hero-photo {
-  border-radius: 18px;
-}
-
-.hero-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 16 / 9;
-}
-
-/* จอเล็ก hero photo */
-@media (max-width: 991.98px) {
-  .hero-wrap.hero-clean {
-    align-items: flex-start;
-  }
-
-  .hero-photo-shell {
-    margin-inline: auto;
-    margin-top: 0.75rem;
-  }
-
-  .hero-photo-card {
-    margin-top: 1rem;
-    margin-inline: auto;
-  }
-
-  .hero-photo-card-inner {
-    padding: 1.3rem 1.3rem 1.2rem;
-  }
-}
-
-/* ===========================
-   💎 Icons & Hover
+   Icons & Hover Utils
 =========================== */
 .icon-ring {
   display: inline-flex;
@@ -409,6 +167,7 @@ a:hover {
   color: var(--ds-primary);
 }
 
+/* simple zoom on images (used in some cards/hero) */
 .img-zoom {
   overflow: hidden;
   border-radius: 14px;
@@ -423,101 +182,165 @@ a:hover {
   transform: scale(1.07);
 }
 
-.hover-lift {
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12) !important;
-}
-
 /* ===========================
-   💎 Navbar (พื้นขาวตลอดเวลา)
+   Header + Navbar
 =========================== */
-.header-fixed {
-  background: #ffffff !important;
-  box-shadow: 0 2px 10px rgba(2, 8, 23, 0.04);
-  border-bottom: 1px solid rgba(15, 23, 42, 0.05);
-  z-index: 1020;
+.site-navbar {
+  background-color: #ffffff;
+  transition: box-shadow 0.18s ease-out, background-color 0.18s ease-out;
+  z-index: 1030;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
 }
 
-.header-fixed.nav-scrolled {
-  box-shadow: 0 6px 24px rgba(2, 8, 23, 0.08);
-  border-bottom-color: rgba(15, 23, 42, 0.08);
+.site-navbar.navbar-scrolled {
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.14);
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
 }
 
-.brand-gradient {
-  background: linear-gradient(90deg, #0ea5a4, #22d3ee);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* brand text */
+.site-navbar .navbar-brand {
+  font-size: 1rem;
 }
 
-.nav-link-modern {
-  color: var(--ds-ink-2) !important;
-  font-weight: 500;
-  padding-inline: 12px;
+/* โลโก้ฟันกลมๆ */
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  font-size: 18px;
+  background: radial-gradient(
+    circle at 30% 0%,
+    #e0f2fe 0%,
+    #06b6d4 40%,
+    #0f172a 100%
+  );
+  color: #ffffff;
+}
+
+/* title / subtitle */
+.brand-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.brand-sub {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+/* toggler ปรับให้ดูเนียน */
+.toggle-luxe {
+  padding: 0.35rem 0.5rem;
+  background-color: #ffffff;
+}
+
+/* nav link */
+.site-navbar .nav-link {
+  font-size: 0.85rem;
+  padding-inline: 0.75rem;
+}
+
+.nav-link-luxe {
+  letter-spacing: 0.06em;
+}
+
+.nav-link-animate {
   position: relative;
-  transition: color 0.25s ease;
 }
 
-.nav-link-modern:hover {
-  color: var(--ds-primary) !important;
-}
-
-.nav-link-modern.active {
-  color: var(--ds-primary) !important;
-}
-
-.nav-link-modern.active::after,
-.nav-link-modern:hover::after {
+.nav-link-animate::after {
   content: "";
   position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 0;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.35rem;
   height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, #0ea5a4, #22d3ee, #0ea5a4);
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0ea5e9, #22c55e);
+  transform-origin: center;
+  transform: scaleX(0);
+  transition: transform 0.22s ease-out;
 }
 
-.header-cta {
-  background: linear-gradient(90deg, #0ea5a4, #22d3ee);
-  border: none;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
+.site-navbar .nav-link:hover::after,
+.site-navbar .nav-link:focus::after,
+.site-navbar .nav-link.active::after {
+  transform: scaleX(1);
 }
 
-.header-cta:hover {
+.site-navbar .nav-link:hover,
+.site-navbar .nav-link:focus {
+  color: #0d6efd;
+}
+
+/* ปุ่ม call ด้านขวา */
+.btn-luxe {
+  border-radius: 999px;
+  background: var(--ds-primary);
+  border-color: var(--ds-primary);
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+}
+
+.btn-luxe:hover {
+  background: var(--ds-primary-600);
+  border-color: var(--ds-primary-600);
+  color: #ffffff;
+}
+
+/* จุดเขียวในปุ่ม Call */
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+}
+
+/* hover animation สำหรับ CTA */
+.header-cta-anim {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.header-cta-anim:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(14, 165, 164, 0.25);
-  opacity: 0.95;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.25);
 }
 
-/* มือถือ navbar */
-@media (max-width: 991.98px) {
-  .header-fixed {
-    background: #ffffff !important;
+/* animation ตอน header โผล่ครั้งแรก */
+.header-enter {
+  animation: headerFadeIn 0.45s ease-out;
+}
+
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ปรับให้เหมาะกับจอเล็ก */
+@media (max-width: 767.98px) {
+  .site-navbar {
+    border-bottom-color: rgba(148, 163, 184, 0.18);
   }
 
-  .nav-link-modern::after {
+  .site-navbar .navbar-brand {
+    font-size: 0.95rem;
+  }
+
+  .brand-sub {
     display: none;
   }
 }
 
 /* ===========================
-   💎 Section transitions
-=========================== */
-.section-fade {
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-  transition: background 0.5s ease;
-}
-
-/* ===========================
-   💎 Services Section
+   Services Section
 =========================== */
 .service-card {
   box-shadow: 0 16px 40px rgba(2, 8, 23, 0.06);
@@ -537,7 +360,7 @@ a:hover {
 }
 
 /* ===========================
-   💎 Team Section
+   Team Section
 =========================== */
 .team-card {
   transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -584,149 +407,35 @@ a:hover {
 }
 
 /* ===========================
-   💎 Contact Section
+   Facility Section
 =========================== */
-.contact-card {
-  box-shadow: 0 16px 40px rgba(2, 8, 23, 0.06);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+.facility-section {
+  /* ใช้ร่วมกับ bg-light ของ Bootstrap */
 }
 
-.contact-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 60px rgba(2, 8, 23, 0.1);
+.facility-image {
+  overflow: hidden;
+  border-radius: 0.75rem;
 }
 
-.border-teal-100 {
-  border-color: rgba(14, 165, 164, 0.15) !important;
-}
-
-.btn-pill.text-white:hover {
-  background: linear-gradient(90deg, #22d3ee, #0ea5a4);
-  transform: scale(1.03);
-  box-shadow: 0 8px 20px rgba(14, 165, 164, 0.3);
-}
-
-/* ===========================
-   💎 Footer Section
-=========================== */
-.footer-link {
-  color: #b7fdf7;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-  color: #22d3ee;
-  text-decoration: underline;
-}
-
-.border-white-10 {
-  border-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-.social-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  color: #b7fdf7;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-  background: linear-gradient(90deg, #0ea5a4, #22d3ee);
-  color: #fff;
-  transform: translateY(-3px);
-}
-
-.wave-top {
-  height: 80px;
+.facility-image img {
   width: 100%;
   display: block;
-  position: relative;
-  margin-bottom: -1px;
-  border: none;
+  object-fit: cover;
+  transition: transform 0.18s ease-out;
+}
+
+.facility-image:hover img {
+  transform: scale(1.04);
+}
+
+.facility-caption {
+  margin-top: 0.25rem;
 }
 
 /* ===========================
-   💎 Bottom-right Floating Buttons
+   Misc
 =========================== */
-.social-rail-bottom {
-  position: fixed;
-  bottom: 26px;
-  right: 26px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  z-index: 1050;
-}
-
-.social-btn-pair {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  text-decoration: none;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    opacity 0.25s ease;
-}
-
-.social-btn-pair:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
-  opacity: 0.95;
-}
-
-.social-label {
-  user-select: none;
-}
-
-/* มือถือ: Floating buttons */
-@media (max-width: 767.98px) {
-  .social-rail-bottom {
-    bottom: 18px;
-    right: 18px;
-    gap: 10px;
-  }
-
-  .social-btn-pair {
-    font-size: 13px;
-    padding: 9px 14px;
-  }
-}
-
-/* ===========================
-   💎 Misc / Performance
-=========================== */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #0ea5a4;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #0b8b8b;
-}
-
 .ratio iframe {
   width: 100%;
   height: 100%;
@@ -739,193 +448,4 @@ a:hover {
     animation: none !important;
     transition: none !important;
   }
-}
-
-/* Header entrance animation */
-.header-enter {
-  opacity: 0;
-  transform: translateY(-10px);
-  animation: headerFadeDown 0.45s ease-out forwards;
-}
-
-@keyframes headerFadeDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* โลโก้เด้งนิด ๆ เวลา hover */
-.logo-badge {
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-}
-
-.logo-badge:hover {
-  transform: translateY(-1px) scale(1.03);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.22);
-}
-
-/* ลิงก์เมนูขยับนิด ๆ + underline animate */
-.nav-link-animate {
-  position: relative;
-  transition: color 0.18s ease, transform 0.18s ease;
-}
-
-.nav-link-animate::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  height: 2px;
-  width: 100%;
-  transform: scaleX(0);
-  transform-origin: center;
-  background: linear-gradient(90deg, #0ea5e9, #14b8a6, #22c55e);
-  transition: transform 0.18s ease;
-  border-radius: 999px;
-}
-
-.nav-link-animate:hover {
-  transform: translateY(-1px);
-  color: #0f766e;
-}
-
-.nav-link-animate:hover::after {
-  transform: scaleX(1);
-}
-
-/* ปุ่ม Book appointment เด้งนิด ๆ */
-.header-cta-anim {
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    filter 0.18s ease;
-}
-
-.header-cta-anim:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 14px 34px rgba(8, 47, 73, 0.4);
-  filter: brightness(1.03);
-}
-
-.header-cta-anim:active {
-  transform: translateY(0);
-  box-shadow: 0 8px 22px rgba(8, 47, 73, 0.35);
-}
-
-/* เบอร์โทรขยับสีเบา ๆ */
-.nav-phone {
-  color: #0369a1;
-  transition: color 0.18s ease, transform 0.18s ease;
-}
-
-.nav-phone:hover {
-  color: #0f766e;
-  transform: translateY(-1px);
-}
-
-/* Hero entrance animations */
-.hero-left,
-.hero-right {
-  opacity: 0;
-  transform: translateY(12px);
-}
-
-.hero-section .hero-left {
-  animation: heroFadeUp 0.55s ease-out forwards;
-  animation-delay: 0.05s;
-}
-
-.hero-section .hero-right {
-  animation: heroFadeUp 0.6s ease-out forwards;
-  animation-delay: 0.18s;
-}
-
-@keyframes heroFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Floating card appears slightly after image */
-.hero-floating-card {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: heroCardUp 0.5s ease-out forwards;
-  animation-delay: 0.35s;
-}
-
-@keyframes heroCardUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Image hover: ลอยขึ้นนิดหน่อย */
-.hero-image-wrapper {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.hero-image-wrapper:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 32px 80px rgba(15, 23, 42, 0.24);
-}
-
-/* Glow ของจุดสถานะ ขยับนิด ๆ */
-.hero-status-dot {
-  animation: pulseGlow 1.7s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-  0% {
-    box-shadow: 0 0 12px rgba(22, 163, 74, 0.7);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 22px rgba(22, 163, 74, 0.95);
-    transform: scale(1.05);
-  }
-  100% {
-    box-shadow: 0 0 12px rgba(22, 163, 74, 0.7);
-    transform: scale(1);
-  }
-}
-
-/* CTA hover: เด้งเบา ๆ */
-.hero-cta-main,
-.hero-cta-phone {
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease,
-    filter 0.18s ease;
-}
-
-.hero-cta-main:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 18px 46px rgba(8, 47, 73, 0.4);
-  filter: brightness(1.03);
-}
-
-.hero-cta-phone:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
-}
-
-/* กันไว้นิด: hero ทั้ง section ดูเนียน */
-.hero-section {
-  will-change: transform, opacity;
 }

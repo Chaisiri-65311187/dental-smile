@@ -1,0 +1,8 @@
+/* Global link reset – no underline anywhere */
+a,
+a:hover,
+a:focus,
+a:active,
+a:visited {
+  text-decoration: none;
+}

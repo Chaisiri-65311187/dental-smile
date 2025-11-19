@@ -1,166 +1,151 @@
 // src/components/Header.jsx
 import React, { useEffect, useState } from "react";
 import { CLINIC_INFO } from "../constants/clinic";
+import "../styles/header.css";
 
-const NAV_ITEMS = [
-  { href: "#hero", label: "Home" },
-  { href: "#services", label: "Services" },
-  { href: "#team", label: "Doctors" },
-  { href: "#guarantee", label: "Guarantee" },
-  { href: "#facility", label: "Facility" },
-  { href: "#contact", label: "Contact" },
-  { href: "#map", label: "Map" },
-];
+const NAV_ITEMS = CLINIC_INFO.navMain;
+// กำหนดระยะห่างจากด้านบน (offset) สำหรับการเลื่อนไปยังส่วนต่างๆ (Fixed Header Height)
+const ANCHOR_OFFSET = 80;
 
-export default function Header({ lang = "en", toggleLang }) {
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
+  // --- 1. Data Preparation ---
+  const phone = CLINIC_INFO.phone;
+  // ทำความสะอาดเบอร์โทรศัพท์สำหรับลิงก์ tel:
+  const phoneHref = `tel:${(CLINIC_INFO.phoneHref || phone || "")
+    .replace(/\s|-/g, "")
+    .trim()}`;
+  const movedNotice = CLINIC_INFO.movedNotice?.en;
+
+  // --- 2. Scroll Detection Logic ---
   useEffect(() => {
-    setIsMounted(true);
-
     const onScroll = () => {
+      // ตั้งค่า scrolled state หาก scroll เกิน 10px
       setIsScrolled(window.scrollY > 10);
     };
-
-    onScroll();
+    onScroll(); // รันครั้งแรก
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleScrollTo = (e, href) => {
-    e.preventDefault();
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    const offset = 80;
-    const y = el.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top: y, behavior: "smooth" });
+  // --- 3. Smooth Scroll Handler ---
+  const handleNavClick = (e, href) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const el = document.querySelector(href);
+      if (el) {
+        // คำนวณตำแหน่ง scroll โดยหักด้วย Anchor Offset
+        const y = el.getBoundingClientRect().top + window.scrollY - ANCHOR_OFFSET;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+      // ปิดเมนูมือถือหลังจากคลิก
+      setIsOpen(false);
+    }
   };
 
-  const phoneHref = `tel:${(CLINIC_INFO.phoneHref || CLINIC_INFO.phone)
-    .replace(/\s|-/g, "")
-    .trim()}`;
-
-  const headerClassName = [
-    "header-fixed",
-    isScrolled ? "nav-scrolled" : "",
-    isMounted ? "header-enter" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
+  // --- 4. Component Render ---
   return (
     <header
-      className={headerClassName}
-      style={{
-        position: "sticky",
-        top: 0,
-        width: "100%",
-      }}
+      className={`site-header header-root fixed-top ${
+        isScrolled ? "header-scrolled" : ""
+      }`}
     >
-      <div
-        className="ds-header-inner"
-        style={{
-          maxWidth: "1120px",
-          margin: "0 auto",
-          padding: "0.8rem 1.75rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "rem", 
-        }}
-      >
-        {/* Logo / Brand */}
-        <div
-          className="ds-logo"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.8rem",
-          }}
-        >
-          <div
-            className="logo-badge"
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: "999px",
-              background:
-                "conic-gradient(from 180deg at 50% 50%, #22d3ee, #0ea5a4, #a5f3fc, #22d3ee)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#ffffff",
-              fontWeight: 800,
-              fontSize: 20,
-              boxShadow: "0 10px 26px rgba(15,23,42,0.18)",
-            }}
-          >
-            🦷
-          </div>
+      <div className="container">
+        <div className="d-flex align-items-center justify-content-between header-inner">
+          {/* Brand */}
+          <a href="#hero" className="d-flex align-items-center header-brand">
+            <div className="d-flex align-items-center justify-content-center flex-shrink-0 brand-mark me-2">
+              <span className="brand-mark-text">DS</span>
+            </div>
+            <div className="d-flex flex-column">
+              <div className="header-brand-name">Dental Smile</div>
+              <div className="d-flex flex-wrap align-items-center gap-1">
+                <span className="header-subtitle">Pattaya</span>
+                {/* แสดง badge ย้ายคลินิกเฉพาะบน Desktop */}
+                {movedNotice && (
+                  <span className="header-notice d-none d-lg-inline-flex align-items-center gap-1 ms-1">
+                    <span className="notice-dot" />
+                    <span>{movedNotice}</span>
+                  </span>
+                )}
+              </div>
+            </div>
+          </a>
 
-          <div style={{ lineHeight: 1.2 }}>
-            <div
-              className="brand-gradient"
-              style={{
-                fontSize: 16,
-                fontWeight: 700,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-              }}
+          {/* Desktop Nav */}
+          <nav className="d-none d-lg-block">
+            <ul className="nav align-items-center gap-2">
+              {NAV_ITEMS.map((item) => (
+                <li className="nav-item" key={item.href}>
+                  <a
+                    href={item.href}
+                    className="nav-link header-link"
+                    onClick={(e) => handleNavClick(e, item.href)}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              {phone && (
+                <li className="nav-item ps-2">
+                  <a href={phoneHref} className="btn header-call-btn d-inline-flex align-items-center gap-2">
+                    <span className="call-dot" />
+                    <span className="call-text">{phone}</span>
+                  </a>
+                </li>
+              )}
+            </ul>
+          </nav>
+
+          {/* Mobile elements */}
+          <div className="d-flex d-lg-none align-items-center gap-3">
+            {phone && (
+              <a href={phoneHref} className="header-call-btn btn d-flex align-items-center justify-content-center">
+                {/* ปุ่มโทรศัพท์มือถือ แสดงเฉพาะจุดสีเขียว */}
+                <span className="call-dot" />
+              </a>
+            )}
+
+            <button
+              className="btn header-toggle"
+              type="button"
+              aria-expanded={isOpen}
+              aria-label="Toggle navigation"
+              onClick={() => setIsOpen(!isOpen)}
             >
-              {CLINIC_INFO.name}
-            </div>
-            <div
-              style={{
-                fontSize: 13,
-                color: "#6b7280",
-                fontWeight: 400,
-                maxWidth: 260,
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-              }}
-            >
-              {CLINIC_INFO.tagline}
-            </div>
+              <span className={`burger ${isOpen ? "burger-open" : ""}`}>
+                <span className="burger-line" />
+                <span className="burger-line" />
+                <span className="burger-line" />
+              </span>
+            </button>
           </div>
         </div>
+      </div>
 
-        {/* Nav + CTA */}
-        <nav
-          className="ds-nav"
-          aria-label="Main navigation"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "1.8rem", // ⬅ เพิ่มช่องไฟระหว่างเมนูกับโซนปุ่ม
-            fontSize: 14,
-          }}
-        >
-          <ul
-            style={{
-              listStyle: "none",
-              display: "flex",
-              alignItems: "center",
-              gap: "1.1rem", // ⬅ เมนูแต่ละอันห่างขึ้น
-              margin: 0,
-              padding: 0,
-            }}
-          >
+      {/* Mobile menu (Hidden on lg+) */}
+      <div
+        className={`mobile-nav d-lg-none ${isOpen ? "mobile-nav-open" : ""}`}
+      >
+        <div className="container py-3">
+          {movedNotice && (
+            <div className="mb-3">
+              <span className="header-notice w-100 justify-content-center d-inline-flex align-items-center gap-1">
+                <span className="notice-dot" />
+                <span>{movedNotice}</span>
+              </span>
+            </div>
+          )}
+
+          <ul className="nav flex-column gap-1 mb-3">
             {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
+              <li className="nav-item" key={item.href}>
                 <a
                   href={item.href}
-                  onClick={(e) => handleScrollTo(e, item.href)}
-                  className="nav-link-modern nav-link-animate"
-                  style={{
-                    textDecoration: "none",
-                    padding: "0.35rem 0.7rem", // ⬅ เพิ่ม padding รอบตัวหนังสือ
-                    borderRadius: 999,
-                    letterSpacing: "0.03em", // ⬅ ตัวอักษรห่างกันขึ้นนิดหน่อย
-                  }}
+                  className="nav-link header-link"
+                  onClick={(e) => handleNavClick(e, item.href)}
                 >
                   {item.label}
                 </a>
@@ -168,31 +153,17 @@ export default function Header({ lang = "en", toggleLang }) {
             ))}
           </ul>
 
-          {/* CTA area */}
-          <div
-            className="ds-nav-cta"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.7rem",
-              marginLeft: "0.25rem",
-            }}
-          >
+          {phone && (
             <a
-              href="#contact"
-              onClick={(e) => handleScrollTo(e, "#contact")}
-              className="btn btn-pill text-white header-cta header-cta-anim hero-cta-main"
-              style={{
-                fontSize: 13,
-                fontWeight: 600,
-                padding: "0.4rem 1.1rem",
-                whiteSpace: "nowrap",
-              }}
+              href={phoneHref}
+              className="btn header-call-btn w-100 d-flex align-items-center justify-content-center gap-2"
+              onClick={() => setIsOpen(false)}
             >
-              Book appointment
+              <span className="call-dot" />
+              <span className="call-text">{phone}</span>
             </a>
-          </div>
-        </nav>
+          )}
+        </div>
       </div>
     </header>
   );

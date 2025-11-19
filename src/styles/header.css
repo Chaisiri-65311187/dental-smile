@@ -1,0 +1,281 @@
+/* ============================================================
+ * Soft Premium Dental Header – no underline, pastel, glass
+ * ==========================================================*/
+
+:root {
+  --ds-header-bg: rgba(255, 255, 255, 0.82);
+  --ds-header-bg-scrolled: rgba(255, 255, 255, 0.96);
+  --ds-header-blur: 18px;
+  --ds-header-border: rgba(148, 163, 184, 0.18);
+  --ds-header-border-strong: rgba(148, 163, 184, 0.3);
+  --ds-text-main: #0f172a;
+  --ds-text-muted: #64748b;
+
+  --ds-accent-blue: #38bdf8;
+  --ds-accent-mint: #22c55e;
+  --ds-accent-soft-blue: #e0f2fe;
+  --ds-accent-soft-mint: #ecfdf5;
+  --ds-accent-soft-pink: #fce7f3;
+}
+
+/* ---------- Header shell ---------- */
+
+.site-header.header-root {
+  backdrop-filter: blur(var(--ds-header-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--ds-header-blur)) saturate(160%);
+  background: var(--ds-header-bg);
+  border-bottom: 1px solid var(--ds-header-border);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 200ms ease;
+  z-index: 1030;
+  box-shadow: none;
+}
+
+.site-header.header-scrolled {
+  background: var(--ds-header-bg-scrolled);
+  border-bottom-color: var(--ds-header-border-strong);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.header-inner {
+  min-height: 66px;
+  padding-block: 6px;
+}
+
+/* ---------- Brand ---------- */
+
+.header-brand {
+  text-decoration: none !important;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    #e0f2fe,
+    #fce7f3,
+    #ecfdf5
+  );
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 6px 18px rgba(15, 23, 42, 0.12),
+    0 0 0 3px rgba(255, 255, 255, 0.9);
+}
+
+.brand-mark-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ds-text-main);
+}
+
+.header-brand-name {
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--ds-text-main);
+}
+
+.header-subtitle {
+  font-size: 0.78rem;
+  color: var(--ds-text-muted);
+}
+
+/* ---------- Notice pill ---------- */
+
+.header-notice {
+  margin-top: 2px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: linear-gradient(
+    130deg,
+    rgba(224, 242, 254, 0.96),
+    rgba(248, 250, 252, 0.96)
+  );
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #0369a1;
+  backdrop-filter: blur(10px);
+}
+
+.notice-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--ds-accent-mint);
+}
+
+/* ---------- Nav links (no underline, soft hover) ---------- */
+
+.header-link {
+  position: relative;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ds-text-muted) !important;
+  text-decoration: none !important;
+  border-radius: 999px;
+  transition:
+    color 140ms ease,
+    background-color 160ms ease;
+}
+
+/* ❌ ไม่ทำ underline ใต้ข้อความ */
+.header-link::after {
+  content: none;
+}
+
+.header-link:hover,
+.header-link:focus-visible {
+  background-color: rgba(224, 242, 254, 0.9);
+  color: var(--ds-text-main) !important;
+}
+
+/* ---------- Call button (glass pill) ---------- */
+
+.header-call-btn {
+  border-radius: 999px;
+  padding: 0.4rem 1.3rem;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: linear-gradient(
+    135deg,
+    rgba(224, 242, 254, 0.98),
+    rgba(236, 253, 245, 0.98),
+    rgba(252, 231, 243, 0.96)
+  );
+  color: var(--ds-text-main) !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease;
+  text-decoration: none !important;
+}
+
+.header-call-btn:hover,
+.header-call-btn:focus-visible {
+  background: linear-gradient(
+    135deg,
+    rgba(219, 234, 254, 1),
+    rgba(209, 250, 229, 1),
+    rgba(252, 231, 243, 1)
+  );
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
+  transform: translateY(-1px);
+}
+
+.call-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #bbf7d0, #22c55e);
+  box-shadow: 0 0 0 3px rgba(187, 247, 208, 0.7);
+}
+
+/* ---------- Burger icon ---------- */
+
+.header-toggle {
+  border-radius: 999px !important;
+  padding: 0.3rem 0.6rem;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(148, 163, 184, 0.75);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.burger {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 18px;
+  height: 18px;
+}
+
+.burger-line {
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: #0f172a;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease,
+    width 160ms ease;
+}
+
+.burger-open .burger-line:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.burger-open .burger-line:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.burger-open .burger-line:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ---------- Mobile nav ---------- */
+
+.mobile-nav {
+  max-height: 0;
+  overflow: hidden;
+  border-top: 1px solid transparent;
+  background: linear-gradient(
+    180deg,
+    rgba(248, 250, 252, 0.98),
+    rgba(236, 249, 255, 0.98)
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition:
+    max-height 260ms ease,
+    border-color 180ms ease,
+    opacity 200ms ease;
+  opacity: 0;
+}
+
+.mobile-nav-open {
+  max-height: 360px;
+  border-top-color: var(--ds-header-border);
+  opacity: 1;
+}
+
+.mobile-nav .nav-link {
+  padding-left: 0;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 575.98px) {
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+  }
+  .brand-mark-text {
+    font-size: 0.78rem;
+  }
+  .header-inner {
+    min-height: 58px;
+  }
+}

@@ -1,0 +1,39 @@
+/* ============================================================
+ * Services – Soft premium pricing cards
+ * ==========================================================*/
+
+#services {
+  background: #ffffff;
+}
+
+/* card container */
+.service-card {
+  border-radius: 1.4rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: radial-gradient(circle at top left, #f9fafb 0, #ffffff 50%, #f1f5f9 100%);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+  transition:
+    transform 160ms ease,
+    box-shadow 180ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.09);
+  border-color: rgba(56, 189, 248, 0.45);
+}
+
+/* list items */
+.service-card ul li {
+  border-bottom: 1px dashed rgba(203, 213, 225, 0.8);
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.service-card ul li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}

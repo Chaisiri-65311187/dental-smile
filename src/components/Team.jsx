@@ -1,10 +1,92 @@
 // src/components/Team.jsx
 import React from "react";
-import { STAFF } from "../data/staff";
-import { useReveal } from "../hooks/useReveal";
+import "../styles/team.css";
+
+const DOCTORS = [
+  // ... (ข้อมูลแพทย์ยังคงเดิม)
+  {
+    name: "Dr. Patcharin Nanthaekaphong",
+    nickname: "Dr. Cherry",
+    role: "Prosthodontist & Implant Dentist",
+    education: [
+      "Doctor of Dental Surgery (Honours), Mahidol University",
+      "Master in Prosthodontics Dentistry, Mahidol University",
+      "Certificates in Surgical & Prosthetic Implant Dentistry (Bern University Swiss, AIC and others)",
+    ],
+  },
+  {
+    name: "Dr. Pabhinvitch Vipatbovonwong",
+    nickname: "Dr. Tob",
+    role: "Orthodontist",
+    education: [
+      "Doctor of Dental Surgery, Khon Kaen University",
+      "Master of Science in Dentistry (Orthodontics), Khon Kaen University",
+    ],
+  },
+  {
+    name: "Dr. Assawinee Thimsang",
+    nickname: "Dr. Ae",
+    role: "Periodontist",
+    education: [
+      "Doctor of Dental Surgery (Honours), Mahidol University",
+      "Master of Science in Dentistry (Periodontics), Mahidol University",
+      "Diplomate, Thai Board of Periodontics",
+    ],
+  },
+  {
+    name: "Dr. Surpun Srikume",
+    nickname: "Dr. Nung",
+    role: "Endodontist",
+    education: [
+      "Doctor of Dental Surgery (Honours), Srinakharinvirot University",
+      "Master of Science in Dentistry (Endodontics), Srinakharinvirot University",
+    ],
+  },
+  {
+    name: "Dr. Woradet Phichaiutkrit",
+    nickname: "Dr. Boy",
+    role: "Advanced General Dentistry",
+    education: [
+      "Doctor of Dental Surgery, Mahidol University",
+      "Master of Science in General Dentistry, Khon Kaen University",
+    ],
+  },
+  {
+    name: "Dr. Chaichan Sangsirinakagul",
+    nickname: "Dr. Gui",
+    role: "Advanced General Dentistry",
+    education: [
+      "Doctor of Dental Surgery, Khon Kaen University",
+      "Master of Science in General Dentistry, Khon Kaen University",
+    ],
+  },
+  {
+    name: "Dr. Jureeporn Piladist",
+    nickname: "Dr. Numaoi",
+    role: "General Dentistry",
+    education: [
+      "Doctor of Dental Surgery, Chulalongkorn University",
+    ],
+  },
+  {
+    name: "Dr. Lalita Rutchakitprakarn",
+    nickname: "Dr. Ann",
+    role: "General Dentistry",
+    education: [
+      "Doctor of Dental Surgery, Thammasat University",
+    ],
+  },
+  {
+    name: "Dr. Chatchai Tharanont",
+    nickname: "Dr. Chai",
+    role: "General Dentistry",
+    education: [
+      "Doctor of Dental Surgery, Mahidol University",
+    ],
+  },
+];
 
 function getDoctorImage(doc) {
-  if (doc.img) return doc.img;
   const nickSlug =
     doc.nickname
       ?.toLowerCase()
@@ -17,129 +99,55 @@ const FALLBACK_IMG =
   "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop";
 
 export default function Team() {
-  // ใช้ hook สำหรับ reveal animation (ใช้ร่วมกับ .reveal / .reveal-stagger ใน CSS)
-  useReveal();
-
-  const orderedStaff = [...STAFF].sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
-
   return (
-    <section
-      id="team"
-      className="section-pad section-fade"
-      style={{
-        background: "#f9fafb",
-        color: "#0f172a",
-      }}
-    >
-      <div style={{ maxWidth: 1080, margin: "0 auto", paddingInline: "1.25rem" }}>
-        {/* Heading */}
-        <div
-          className="reveal"
-          style={{ textAlign: "center", marginBottom: "2rem" }}
-        >
-          <h2
-            style={{
-              margin: 0,
-              fontSize: "1.7rem",
-              fontWeight: 800,
-              letterSpacing: "-0.035em",
-              color: "#020617",
-            }}
-          >
-            Meet our doctors
-          </h2>
-          <p
-            style={{
-              marginTop: "0.35rem",
-              fontSize: 13.5,
-              color: "#6b7280",
-            }}
-          >
-            Experienced, gentle and internationally trained.
+    <section id="team" className="section-pad section-fade">
+      <div className="container">
+        {/* ลบ class "reveal" ออก */}
+        <div className="text-center mb-5">
+          <h2 className="h2 fw-bold text-ink mb-2">Our dentist team</h2>
+          <p className="small text-ink-3 mb-0">
+            Experienced prosthodontists, implant dentists, orthodontists and
+            general dentists providing comprehensive care.
           </p>
         </div>
 
-        {/* Grid */}
-        <div
-          className="reveal-stagger"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0,1fr))",
-            gap: "1.5rem",
-          }}
-        >
-          {orderedStaff.map((doc) => {
-            const imgSrc = getDoctorImage(doc);
-
-            return (
-              <article
-                key={doc.name}
-                className="team-card"
-                style={{
-                  background: "#ffffff",
-                  borderRadius: 20,
-                  padding: "1.4rem 0.9rem 1.2rem",
-                  border: "1px solid rgba(148,163,184,0.25)",
-                  textAlign: "center",
-                }}
-              >
-                {/* รูปหมอวงกลม – ใช้ .team-img-wrapper / .team-img จาก CSS */}
-                <div
-                  className="team-img-wrapper"
-                  style={{
-                    margin: "0 auto 0.85rem",
-                  }}
-                >
-                  <img
-                    src={imgSrc}
-                    alt={doc.name}
-                    onError={(e) => (e.currentTarget.src = FALLBACK_IMG)}
-                    className="team-img"
-                  />
+        {/* ลบ class "reveal-stagger" ออก */}
+        <div className="row g-4">
+          {DOCTORS.map((doc) => (
+            <div className="col-md-6 col-lg-4" key={doc.name}>
+              <article className="team-card h-100 p-4 d-flex flex-column align-items-center text-center">
+                
+                {/* Image Wrapper */}
+                <div className="team-img-wrapper mb-3">
+                    <img
+                      src={getDoctorImage(doc)}
+                      onError={(e) => {
+                        e.currentTarget.src = FALLBACK_IMG;
+                      }}
+                      alt={doc.name}
+                      className="team-img"
+                    />
                 </div>
-
-                {/* ชื่อหมอ */}
-                <div
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "#020617",
-                  }}
-                >
+                
+                {/* Name and Role */}
+                <h3 className="h6 fw-bold text-ink mb-0 team-name">
                   {doc.name}
+                </h3>
+                {/* Role/Specialty */}
+                <div className="tiny text-ink-3 team-specialty mb-2">
+                    {doc.role}
                 </div>
-
-                {/* ตำแหน่ง */}
-                <div
-                  style={{
-                    fontSize: 12.5,
-                    marginTop: 2,
-                    color: "#0d9488",
-                    fontWeight: 500,
-                  }}
-                >
-                  {doc.specialty}
-                </div>
-
-                {/* การศึกษา */}
-                <ul
-                  style={{
-                    marginTop: "0.6rem",
-                    marginBottom: 0,
-                    padding: 0,
-                    listStyle: "none",
-                    fontSize: 11.5,
-                    color: "#6b7280",
-                    lineHeight: 1.45,
-                  }}
-                >
-                  {(doc.education || []).slice(0, 2).map((edu, idx) => (
-                    <li key={idx}>{edu}</li>
+                
+                {/* Education List */}
+                <ul className="list-unstyled text-ink-3 mb-0 team-edu">
+                  {doc.education.map((ed) => (
+                    <li key={ed}>{ed}</li>
                   ))}
                 </ul>
+
               </article>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>

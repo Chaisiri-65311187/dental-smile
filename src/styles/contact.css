@@ -1,0 +1,175 @@
+/* ============================================================
+   Contact Section – Soft Dental Premium UI
+   ============================================================ */
+
+/* Entire Section */
+.contact-section {
+  background: linear-gradient(
+    180deg,
+    #f0f9ff 0%,
+    #eef7fd 30%,
+    #ffffff 100%
+  );
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glow background effects */
+.contact-section::before,
+.contact-section::after {
+  content: "";
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.35;
+}
+
+.contact-section::before {
+  background: #a5f3fc;
+  top: -80px;
+  left: -100px;
+}
+
+.contact-section::after {
+  background: #bbf7d0;
+  bottom: -120px;
+  right: -80px;
+}
+
+/* Glass Card */
+.contact-glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 1.6rem;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 20px 60px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(148, 163, 184, 0.12);
+  animation: cardFloat 6s ease-in-out infinite;
+}
+
+/* Map */
+.contact-map-container {
+  width: 100%;
+  height: 260px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.15);
+}
+
+/* Titles */
+.contact-title {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* Labels */
+.contact-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 2px;
+}
+
+/* Text info */
+.contact-info {
+  font-size: 0.83rem;
+  color: #475569;
+  margin-bottom: 1rem;
+}
+
+/* Links */
+.contact-link {
+  color: #0284c7;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.contact-link:hover {
+  opacity: 0.7;
+}
+
+/* Form Input */
+.contact-input {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  color: #0f172a;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.contact-input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Submit Button */
+.contact-submit-btn {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.2rem;
+  background: linear-gradient(135deg, #38bdf8, #22c55e);
+  color: #ffffff;
+  font-weight: 600;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  box-shadow: 0 8px 30px rgba(56, 189, 248, 0.35);
+}
+
+.contact-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 38px rgba(56, 189, 248, 0.5);
+}
+
+/* Buttons */
+.contact-btn-primary,
+.contact-btn-secondary {
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.contact-btn-primary {
+  background: linear-gradient(135deg, #0ea5e9, #22c55e);
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(14, 165, 233, 0.34);
+}
+
+.contact-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(14, 165, 233, 0.44);
+}
+
+.contact-btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.contact-btn-secondary:hover {
+  background: #e2e8f0;
+}
+
+/* Mobile */
+@media (max-width: 575.98px) {
+  .contact-map-container {
+    height: 220px;
+  }
+}

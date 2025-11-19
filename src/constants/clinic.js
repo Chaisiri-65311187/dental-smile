@@ -3,71 +3,62 @@
 export const CLINIC_INFO = {
   name: "Dental Smile Pattaya",
 
+  tagline: "Honest dentist in Pattaya with over 18 years",
+
   movedNotice: {
-    en: "We moved to new office since April 2025.",
+    text: "We moved to new office since April 2025.",
     since: "2025-04-01",
   },
 
+  // Contact
   phone: "038-723460",
   phoneHref: "038723460",
   email: "contact@dentalsmilepattaya.com",
 
+  // Address ตาม footer ของเว็บ
   addressMain:
-    "313/42-43 Pattaya 3rd Road, near South Pattaya, Banglamung, Chonburi 20150, Thailand",
+    "313/42-43 Pattaya 3rd. Road near South Pattaya, Banglamung, Chonburi 20150, Thailand",
+
   addressTaxi:
-    "313/5 Pattaya 3rd Road, near corner South Pattaya Road, Chonburi 20150, Thailand",
+    "313/5 Pattaya 3rd. Road near South Pattaya corner, Banglamung, Chonburi 20150, Thailand",
 
-  nearbyLandmarks: [
-    { name: "TukCom (IT & Mobile mall)", distance: "≈300 m" },
-    { name: "Walking Street Pattaya", distance: "≈700 m" },
-    { name: "Pattaya Beach", distance: "≈700 m" },
-    { name: "Royal Garden Plaza", distance: "≈750 m" },
-    { name: "Central Festival Pattaya Beach", distance: "≈2 km" },
-    { name: "Sukhumvit Road", distance: "≈2 km" },
-    { name: "Suvarnabhumi Bangkok Airport", distance: "≈120 km" },
-  ],
-
-  location: {
-    lat: 12.924242,
-    lng: 100.882485,
-    googleMapUrl: "https://goo.gl/maps/Fgg9...", // ใส่ link เต็มเองได้
-    embedUrl:
-      "https://www.google.com/maps?q=12.924242,100.882485&z=16&output=embed",
+  // เนื้อหา hero + เหตุผลจากหน้า Home
+  hero: {
+    welcomeHeadline: "Welcome to Dental Smile Pattaya!",
+    intro: [
+      "We offer affordable dental treatment in Pattaya, Thailand, while you enjoy your holiday in a beach city close to Bangkok.",
+      "Dental Smile Pattaya is nationally recognized with over 18 years’ experience. We provide cosmetic and specialist dentistry with warm, gentle care so you can feel confident to smile again.",
+    ],
   },
 
-  intro: {
-    shortTh:
-      "คลินิกทำฟันในพัทยาให้บริการคนไข้ทั้งไทยและต่างชาติ เน้นคุณภาพ มาตรฐานสูง และราคาคุ้มกว่าเข้ารักษาในต่างประเทศ",
-    longEn:
-      "Dental Smile Pattaya is a nationally recognized dental clinic in Pattaya, offering cosmetic and specialist dentistry for over 18 years to both local and international patients.",
-  },
-
-  mainServiceAreas: [
-    "General Dentistry",
-    "Periodontics",
-    "Dental Restoration",
-    "Veneer",
-    "Implant",
-    "All on 4 Implants",
+  whyChoose: [
+    "Huge savings on your dental bill up to 50–70% compared with local prices.",
+    "Over 5,000 satisfied patients annually.",
+    "World class cosmetic dentist with quality dental treatments.",
+    "Unforgettable holiday in colorful Pattaya city.",
+    "Fluent English-speaking staff and experienced dentists.",
+    "Full dental services and one-stop for dental treatments.",
+    "Warranty on your dental treatments.",
+    "Up-to-date professional knowledge and state-of-the-art technology.",
+    "Focus on patients – we value satisfaction and want everyone to walk away with a smile.",
   ],
 
-  navPages: [
-    "Home",
-    "Service",
-    "Guarantee",
-    "Staff",
-    "Facility",
-    "Appointment",
-    "Testimonial",
-    "Contact",
-    "Map",
+  navMain: [
+    { href: "#hero", label: "Home" },
+    { href: "#services", label: "Services" },
+    { href: "#guarantee", label: "Guarantee" },
+    { href: "#team", label: "Staff" },
+    { href: "#facility", label: "Facility" },
+    { href: "#contact", label: "Contact" },
+    { href: "#map", label: "Map" },
   ],
 
   images: {
-    hero: "/d1.jpg", // เอารูปคลินิกไปวางใน public/d1.jpg
+    hero: "/d1.jpg", // วางรูปคลินิกใน public/d1.jpg
   },
 
   links: {
     facebook: "https://www.facebook.com/dentalsmilepattaya/?ref=embed_page#",
+    map: "https://www.dentalsmilepattaya.com/map.html",
   },
 };
