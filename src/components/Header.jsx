@@ -4,48 +4,39 @@ import { CLINIC_INFO } from "../constants/clinic";
 import "../styles/header.css";
 
 const NAV_ITEMS = CLINIC_INFO.navMain;
-// กำหนดระยะห่างจากด้านบน (offset) สำหรับการเลื่อนไปยังส่วนต่างๆ (Fixed Header Height)
-const ANCHOR_OFFSET = 80;
+const ANCHOR_OFFSET = 80; // Fixed Header Height
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  // --- 1. Data Preparation ---
   const phone = CLINIC_INFO.phone;
-  // ทำความสะอาดเบอร์โทรศัพท์สำหรับลิงก์ tel:
   const phoneHref = `tel:${(CLINIC_INFO.phoneHref || phone || "")
     .replace(/\s|-/g, "")
     .trim()}`;
   const movedNotice = CLINIC_INFO.movedNotice?.en;
 
-  // --- 2. Scroll Detection Logic ---
   useEffect(() => {
     const onScroll = () => {
-      // ตั้งค่า scrolled state หาก scroll เกิน 10px
       setIsScrolled(window.scrollY > 10);
     };
-    onScroll(); // รันครั้งแรก
+    onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // --- 3. Smooth Scroll Handler ---
   const handleNavClick = (e, href) => {
     if (href.startsWith("#")) {
       e.preventDefault();
       const el = document.querySelector(href);
       if (el) {
-        // คำนวณตำแหน่ง scroll โดยหักด้วย Anchor Offset
         const y = el.getBoundingClientRect().top + window.scrollY - ANCHOR_OFFSET;
         window.scrollTo({ top: y, behavior: "smooth" });
       }
-      // ปิดเมนูมือถือหลังจากคลิก
       setIsOpen(false);
     }
   };
 
-  // --- 4. Component Render ---
   return (
     <header
       className={`site-header header-root fixed-top ${
@@ -63,7 +54,6 @@ export default function Header() {
               <div className="header-brand-name">Dental Smile</div>
               <div className="d-flex flex-wrap align-items-center gap-1">
                 <span className="header-subtitle">Pattaya</span>
-                {/* แสดง badge ย้ายคลินิกเฉพาะบน Desktop */}
                 {movedNotice && (
                   <span className="header-notice d-none d-lg-inline-flex align-items-center gap-1 ms-1">
                     <span className="notice-dot" />
@@ -90,7 +80,10 @@ export default function Header() {
               ))}
               {phone && (
                 <li className="nav-item ps-2">
-                  <a href={phoneHref} className="btn header-call-btn d-inline-flex align-items-center gap-2">
+                  <a
+                    href={phoneHref}
+                    className="btn header-call-btn d-inline-flex align-items-center gap-2"
+                  >
                     <span className="call-dot" />
                     <span className="call-text">{phone}</span>
                   </a>
@@ -102,8 +95,10 @@ export default function Header() {
           {/* Mobile elements */}
           <div className="d-flex d-lg-none align-items-center gap-3">
             {phone && (
-              <a href={phoneHref} className="header-call-btn btn d-flex align-items-center justify-content-center">
-                {/* ปุ่มโทรศัพท์มือถือ แสดงเฉพาะจุดสีเขียว */}
+              <a
+                href={phoneHref}
+                className="header-call-btn btn d-flex align-items-center justify-content-center"
+              >
                 <span className="call-dot" />
               </a>
             )}
@@ -125,10 +120,8 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile menu (Hidden on lg+) */}
-      <div
-        className={`mobile-nav d-lg-none ${isOpen ? "mobile-nav-open" : ""}`}
-      >
+      {/* Mobile menu */}
+      <div className={`mobile-nav d-lg-none ${isOpen ? "mobile-nav-open" : ""}`}>
         <div className="container py-3">
           {movedNotice && (
             <div className="mb-3">

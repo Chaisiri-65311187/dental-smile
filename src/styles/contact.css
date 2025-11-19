@@ -3,37 +3,21 @@
    ============================================================ */
 
 /* Entire Section */
+/* Entire Section */
 .contact-section {
-  background: linear-gradient(
-    180deg,
-    #f0f9ff 0%,
-    #eef7fd 30%,
-    #ffffff 100%
-  );
+  /* เดิมเป็น linear-gradient … ให้ใช้สีเดียวแทน */
+  background: #ffffff;
   padding-top: 5rem;
   padding-bottom: 5rem;
   position: relative;
   overflow: hidden;
 }
 
-/* Glow background effects */
+/* เอา glow ทิ้งเลย */
 .contact-section::before,
 .contact-section::after {
-  content: "";
-  position: absolute;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.35;
+  content: none;
 }
-
-.contact-section::before {
-  background: #a5f3fc;
-  top: -80px;
-  left: -100px;
-}
-
 .contact-section::after {
   background: #bbf7d0;
   bottom: -120px;

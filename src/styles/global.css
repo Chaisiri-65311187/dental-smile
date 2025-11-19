@@ -1,8 +1,49 @@
-/* Global link reset – no underline anywhere */
-a,
-a:hover,
-a:focus,
-a:active,
-a:visited {
-  text-decoration: none;
+/* ============================================================
+   GLOBAL FIX — Make ALL sections same flat background (no fade)
+   ============================================================ */
+
+/* ★ พื้นหลังเดียวทุกหน้า (ปรับสีตรงนี้ได้ เช่น #ffffff หรือ #f9fafb) */
+:root {
+  --global-section-bg: #f9fafb;
+}
+
+/* ★ override ทุก section ถึงแม้ไฟล์นั้นจะมี gradient เดิม ใช้ !important */
+#services,
+#team,
+#facility,
+#guarantee,
+#contact,
+.section-fade,
+.contact-section,
+.facility-section,
+.guarantee-section {
+  background: var(--global-section-bg) !important;
+}
+
+/* ★ ลบ ::before / ::after ของทุก section ที่เป็น blur, glow, gradient */
+#services::before,
+#services::after,
+#team::before,
+#team::after,
+#facility::before,
+#facility::after,
+#guarantee::before,
+#guarantee::after,
+#contact::before,
+#contact::after,
+.section-fade::before,
+.section-fade::after,
+.contact-section::before,
+.contact-section::after,
+.facility-section::before,
+.facility-section::after,
+.guarantee-section::before,
+.guarantee-section::after {
+  content: none !important;
+  background: none !important;
+}
+
+/* ★ ลบ gradient แบบกล่องภายใน เช่น bg-soft-ink */
+.bg-soft-ink {
+  background: var(--global-section-bg) !important;
 }

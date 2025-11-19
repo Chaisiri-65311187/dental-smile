@@ -6,6 +6,12 @@
   background: #ffffff;
 }
 
+/* subtle soft background box */
+.bg-soft-ink {
+  /* เดิมเป็น radial-gradient … */
+  background: #ffffff;
+}
+
 .warranty-pill {
   font-size: 0.78rem;
   border-radius: 999px;

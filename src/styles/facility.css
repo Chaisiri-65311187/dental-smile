@@ -2,41 +2,19 @@
    Facility Section – Premium Soft Dental UI
    ================================================ */
 
+
 /* Section BG */
 #facility,
 .facility-section {
-  background: linear-gradient(
-    180deg,
-    #f0f9ff 0%,
-    #eef7fd 40%,
-    #ffffff 100%
-  );
   position: relative;
   overflow: hidden;
+  background: #ffffff;   /* เพิ่มบรรทัดนี้ */
 }
 
-/* Decorative glow */
+/* ปิด before/after ไม่ให้มีแสงฟ้า */
 .facility-section::before,
 .facility-section::after {
-  content: "";
-  position: absolute;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.32;
-}
-
-.facility-section::before {
-  background: #a5f3fc;
-  top: -100px;
-  left: -80px;
-}
-
-.facility-section::after {
-  background: #bbf7d0;
-  bottom: -120px;
-  right: -60px;
+  content: none;
 }
 
 /* Title + subtitle */

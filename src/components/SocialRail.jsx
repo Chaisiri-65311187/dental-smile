@@ -45,7 +45,7 @@ export default function SocialRail() {
         aria-label="Book appointment"
       >
         <span className="icon-ring">📝</span>
-        <span className="social-label d-none d-lg-inline">Appointment</span>
+        <span className="social-label d-none d-lg-inline">Contact Us</span>
       </a>
 
       {/* Facebook Button (Blue/Indigo Gradient) */}

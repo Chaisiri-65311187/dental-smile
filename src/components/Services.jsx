@@ -163,7 +163,7 @@ const TREATMENT_GROUPS = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-5 bg-white">
+    <section id="services" className="py-5 section-fade">
       <div className="container">
         {/* Title */}
         <div className="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">

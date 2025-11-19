@@ -1,9 +1,12 @@
 /* ============================================================
  * Team – Dentist cards
  * ==========================================================*/
-
+#team {
+  background: #ffffff !important;   /* หรือเปลี่ยนเป็นสีอื่น เช่น #f9fafb */
+}
 .section-fade {
-  background: #f9fafb;
+  position: relative;
+  overflow: hidden;
 }
 
 /* card */

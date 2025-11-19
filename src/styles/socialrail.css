@@ -16,6 +16,7 @@
     opacity 240ms ease-out;
 }
 
+/* ตอนเริ่มโชว์ (ใช้ class เดิม) */
 .social-rail-visible {
   transform: translateY(0);
   opacity: 1;
@@ -35,23 +36,55 @@
   -webkit-backdrop-filter: blur(12px);
   color: #0f172a;
   text-decoration: none !important;
+  cursor: pointer;
+
+  /* ✨ เพิ่ม transition เวลา hover */
+  transition:
+    transform 160ms ease-out,
+    box-shadow 160ms ease-out,
+    filter 160ms ease-out,
+    background-position 260ms ease-out;
+}
+
+/* ----- Hover / Active effect ----- */
+.social-btn-pair:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.32),
+    0 0 0 1px rgba(148, 163, 184, 0.4);
+  filter: brightness(1.03);
+}
+
+.social-btn-pair:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.25);
 }
 
 /* gradients */
 .social-call {
-  background: linear-gradient(135deg, #22c55e, #38bdf8);
+  background-image: linear-gradient(135deg, #22c55e, #38bdf8);
+  background-size: 160% 160%; /* สำหรับ shimmer เบา ๆ */
   color: #f9fafb;
   border-color: transparent;
 }
 
 .social-appt {
-  background: linear-gradient(135deg, #e0f2fe, #ecfdf5);
+  background-image: linear-gradient(135deg, #e0f2fe, #ecfdf5);
+  background-size: 160% 160%;
 }
 
 .social-fb {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background-image: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background-size: 160% 160%;
   color: #f9fafb;
   border-color: transparent;
+}
+
+/* ✨ gradient ขยับเบา ๆ ตอน hover */
+.social-call:hover,
+.social-appt:hover,
+.social-fb:hover {
+  background-position: 100% 0;
 }
 
 /* icon */
@@ -63,6 +96,37 @@
   align-items: center;
   justify-content: center;
   background: rgba(15, 23, 42, 0.08);
+  transition:
+    transform 160ms ease-out,
+    background-color 160ms ease-out;
+}
+
+/* ✨ ไอคอนเด้งนิด ๆ เวลา hover */
+.social-btn-pair:hover .icon-ring {
+  transform: scale(1.12);
+  background: rgba(15, 23, 42, 0.16);
+}
+
+/* ✨ ปุ่มโทรเด้งเป็นระยะ ๆ ดึงสายตา */
+@keyframes call-pulse {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 14px 36px rgba(22, 163, 74, 0.35);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 18px 44px rgba(22, 163, 74, 0.5);
+  }
+}
+
+.social-call {
+  animation: call-pulse 2.6s ease-in-out infinite;
+}
+
+/* เมื่อเอาเมาส์ไปวาง ให้หยุด pulse จะได้ไม่เวียนหัว */
+.social-call:hover {
+  animation-play-state: paused;
 }
 
 /* responsive – hide on very small screens */
@@ -70,5 +134,27 @@
   .social-rail-bottom {
     right: 1rem;
     bottom: 1rem;
+    gap: 0.4rem;
+  }
+
+  .social-btn-pair {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.75rem;
+  }
+
+  .icon-ring {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* 🔕 เคารพ prefers-reduced-motion : ลด animation ลง */
+@media (prefers-reduced-motion: reduce) {
+  .social-rail-bottom,
+  .social-btn-pair,
+  .icon-ring,
+  .social-call {
+    transition: none !important;
+    animation: none !important;
   }
 }
