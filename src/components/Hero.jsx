@@ -6,7 +6,6 @@ import "../styles/hero.css";
 export default function Hero() {
   const sectionRef = useRef(null);
 
-  // --- 1. Data Preparation ---
   const name = CLINIC_INFO.name || "Dental Smile Pattaya";
   const tagline = CLINIC_INFO.tagline || "Gentle dental care in Pattaya";
   const phone = CLINIC_INFO.phone;
@@ -15,7 +14,9 @@ export default function Hero() {
     .trim()}`;
   const heroImage = CLINIC_INFO.images?.hero;
 
-  // --- 2. Simple reveal animation ---
+  // ใช้ logo จาก CLINIC_INFO ถ้ามี ไม่งั้นใช้ไฟล์โลโก้ใน public
+  const logo = CLINIC_INFO.logo || "/logo.jpg";
+
   useEffect(() => {
     const t = setTimeout(() => {
       sectionRef.current?.classList.add("hero-modern-visible");
@@ -23,14 +24,8 @@ export default function Hero() {
     return () => clearTimeout(t);
   }, []);
 
-  // --- 3. Render ---
   return (
-    <section
-      id="hero"
-      ref={sectionRef}
-      className="hero-modern border-bottom"
-    >
-      {/* Background decorative layers */}
+    <section id="hero" ref={sectionRef} className="hero-modern">
       {heroImage && (
         <img
           src={heroImage}
@@ -44,86 +39,71 @@ export default function Hero() {
 
       <div className="container position-relative hero-modern-inner">
         <div className="hero-modern-layout">
-          {/* LEFT: Text / CTA */}
+
+          {/* LEFT BLOCK */}
           <div className="hero-modern-left">
-            {/* Topline badge */}
-            <div className="hero-modern-topline">
-              <span className="hero-modern-badge">
-                {tagline}
-              </span>
+
+            {/* LOGO CENTER */}
+            <div className="hero-logo-container">
+              <img src={logo} alt="Dental Smile Logo" className="hero-logo" />
             </div>
 
-            {/* Main title & subtitle */}
-            <h1 className="hero-modern-title">
-              {name}
-            </h1>
+            {/* TAGLINE */}
+            <div className="hero-modern-topline">
+              <span className="hero-modern-badge">{tagline}</span>
+            </div>
 
+            {/* TITLE */}
+            <h1 className="hero-modern-title">{name}</h1>
+
+            {/* SHORT DESCRIPTION */}
             <p className="hero-modern-subtitle">
-              Soft, gentle dentistry for locals and visitors in Pattaya —
-              clear options, fair prices, and a calm clinic designed to help
-              you actually relax in the dental chair.
+              Gentle, English-speaking dental care for locals and visitors.
             </p>
 
-            {/* Highlights list */}
+            {/* HIGHLIGHTS */}
             <ul className="hero-modern-list">
               <li>
                 <span className="hero-modern-list-dot" />
-                Friendly Thai & English-speaking dentists
+                Friendly dentists & calm clinic.
               </li>
               <li>
                 <span className="hero-modern-list-dot" />
-                Transparent treatment plans & prices
-              </li>
-              <li>
-                <span className="hero-modern-list-dot" />
-                Whitening, implants, braces, and general care
+                Clear treatment plans and pricing.
               </li>
             </ul>
 
-            {/* CTA buttons */}
+            {/* CTA BUTTONS */}
             <div className="hero-modern-cta">
-              <a
-                href="#contact"
-                className="hero-modern-btn hero-modern-btn-primary"
-              >
+              <a href="#contact" className="hero-modern-btn hero-modern-btn-primary">
                 Book an appointment
               </a>
 
-              <a
-                href="#services"
-                className="hero-modern-btn hero-modern-btn-ghost"
-              >
-                View treatments &amp; prices
+              <a href="#services" className="hero-modern-btn hero-modern-btn-ghost">
+                View treatments
               </a>
             </div>
 
-            {/* Contact row */}
+            {/* CONTACT LINE */}
             {phone && (
               <div className="hero-modern-contact">
-                <div className="hero-modern-contact-label">
-                  Prefer to talk first?
-                </div>
-                <a
-                  href={phoneHref}
-                  className="hero-modern-contact-phone"
-                >
+                <div className="hero-modern-contact-label">Prefer to talk?</div>
+                <a href={phoneHref} className="hero-modern-contact-phone">
                   {phone}
                 </a>
-                <span className="hero-modern-contact-note">
-                  Line &amp; call welcome
-                </span>
+                <span className="hero-modern-contact-note">Call or LINE welcome</span>
               </div>
             )}
           </div>
 
-          {/* RIGHT: Floating photo card */}
+          {/* RIGHT PHOTO CARD */}
           <div className="hero-modern-right">
             <div className="hero-modern-card">
               {heroImage && (
                 <div className="hero-modern-card-photo-wrap">
                   <img
                     src={heroImage}
-                    alt={`${name} clinic interior`}
+                    alt={`${name} interior`}
                     className="hero-modern-card-photo"
                   />
                 </div>
@@ -132,11 +112,10 @@ export default function Hero() {
               <div className="hero-modern-card-body">
                 <div className="hero-modern-card-chip-row">
                   <span className="hero-modern-card-chip hero-modern-card-chip-soft">
-                    Gentle whitening • Check-ups
+                    Check-ups • Whitening • Implants
                   </span>
                 </div>
 
-              
                 {phone && (
                   <div className="hero-modern-card-row">
                     <span className="hero-modern-card-dot" />
@@ -145,9 +124,14 @@ export default function Hero() {
                     </a>
                   </div>
                 )}
+
+                <p className="hero-modern-card-note">
+                  3rd Road, Central Pattaya — easy parking.
+                </p>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

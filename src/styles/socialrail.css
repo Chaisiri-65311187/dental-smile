@@ -1,160 +1,131 @@
-/* ============================================================
- * Social Rail – bottom CTA bar
- * ==========================================================*/
-
-.social-rail-bottom {
+/* Root container */
+.social-rail-root {
   position: fixed;
-  right: 1.5rem;
-  bottom: 1.5rem;
+  right: 1.8rem;
+  bottom: 1.6rem;
+  z-index: 50;
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 0.6rem;
-  z-index: 1050;
-  transform: translateY(20px);
+  transform: translateY(120%);
   opacity: 0;
-  transition:
-    transform 240ms ease-out,
-    opacity 240ms ease-out;
 }
 
-/* ตอนเริ่มโชว์ (ใช้ class เดิม) */
-.social-rail-visible {
+.social-rail-root-visible {
   transform: translateY(0);
   opacity: 1;
+  transition: 0.35s ease;
 }
 
-/* base button */
-.social-btn-pair {
-  display: inline-flex;
+/* รูปหมอ — โชว์ตลอด */
+.social-dentist-wrap {
+  pointer-events: none;
+}
+
+.social-dentist-img {
+  height: 180px;
+  width: auto;
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,0.35));
+  transform: translateY(5px);
+}
+
+@media (min-width: 1400px) {
+  .social-dentist-img {
+    height: 210px;
+    transform: translateY(10px);
+  }
+}
+
+/* Panel when open */
+.social-rail-panel {
+  margin-bottom: 0.5rem;
+}
+
+/* Card styling */
+.social-rail-card {
+  background: rgba(15, 23, 42, 0.96);
+  color: #e5e7eb;
+  border-radius: 1.25rem;
+  padding: 0.85rem 1rem;
+  width: 230px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(12px);
+}
+
+.social-rail-header {
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.85rem;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+/* 👋 waving animation */
+.wave-hand {
+  display: inline-block;
+  font-size: 1.4rem;
+  animation: wave-hand 1.8s ease-in-out infinite;
+  transform-origin: 70% 70%;
+}
+
+/* Buttons inside panel */
+.social-rail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.75rem;
   border-radius: 999px;
   font-size: 0.8rem;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #0f172a;
-  text-decoration: none !important;
-  cursor: pointer;
-
-  /* ✨ เพิ่ม transition เวลา hover */
-  transition:
-    transform 160ms ease-out,
-    box-shadow 160ms ease-out,
-    filter 160ms ease-out,
-    background-position 260ms ease-out;
+  background: #fff;
+  text-decoration: none;
 }
 
-/* ----- Hover / Active effect ----- */
-.social-btn-pair:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow:
-    0 18px 40px rgba(15, 23, 42, 0.32),
-    0 0 0 1px rgba(148, 163, 184, 0.4);
-  filter: brightness(1.03);
-}
-
-.social-btn-pair:active {
-  transform: translateY(0) scale(0.97);
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.25);
-}
-
-/* gradients */
 .social-call {
-  background-image: linear-gradient(135deg, #22c55e, #38bdf8);
-  background-size: 160% 160%; /* สำหรับ shimmer เบา ๆ */
-  color: #f9fafb;
-  border-color: transparent;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ecfeff;
 }
 
 .social-appt {
-  background-image: linear-gradient(135deg, #e0f2fe, #ecfdf5);
-  background-size: 160% 160%;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #fff;
 }
 
 .social-fb {
-  background-image: linear-gradient(135deg, #2563eb, #1d4ed8);
-  background-size: 160% 160%;
-  color: #f9fafb;
-  border-color: transparent;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
 }
 
-/* ✨ gradient ขยับเบา ๆ ตอน hover */
-.social-call:hover,
-.social-appt:hover,
-.social-fb:hover {
-  background-position: 100% 0;
-}
-
-/* icon */
-.icon-ring {
-  width: 28px;
-  height: 28px;
+/* ปุ่มลอย */
+.social-toggle-btn {
+  border: none;
+  cursor: pointer;
+  padding: 0.7rem 1rem;
   border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 23, 42, 0.08);
-  transition:
-    transform 160ms ease-out,
-    background-color 160ms ease-out;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
 }
 
-/* ✨ ไอคอนเด้งนิด ๆ เวลา hover */
-.social-btn-pair:hover .icon-ring {
-  transform: scale(1.12);
-  background: rgba(15, 23, 42, 0.16);
+.social-toggle-icon {
+  font-size: 1.2rem;
 }
 
-/* ✨ ปุ่มโทรเด้งเป็นระยะ ๆ ดึงสายตา */
-@keyframes call-pulse {
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-    box-shadow: 0 14px 36px rgba(22, 163, 74, 0.35);
-  }
-  50% {
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 18px 44px rgba(22, 163, 74, 0.5);
-  }
+.social-toggle-open {
+  background: #0f172a;
 }
 
-.social-call {
-  animation: call-pulse 2.6s ease-in-out infinite;
-}
-
-/* เมื่อเอาเมาส์ไปวาง ให้หยุด pulse จะได้ไม่เวียนหัว */
-.social-call:hover {
-  animation-play-state: paused;
-}
-
-/* responsive – hide on very small screens */
-@media (max-width: 575.98px) {
-  .social-rail-bottom {
-    right: 1rem;
-    bottom: 1rem;
-    gap: 0.4rem;
-  }
-
-  .social-btn-pair {
-    padding: 0.45rem 0.7rem;
-    font-size: 0.75rem;
-  }
-
-  .icon-ring {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-/* 🔕 เคารพ prefers-reduced-motion : ลด animation ลง */
-@media (prefers-reduced-motion: reduce) {
-  .social-rail-bottom,
-  .social-btn-pair,
-  .icon-ring,
-  .social-call {
-    transition: none !important;
-    animation: none !important;
-  }
+/* Waving animation keyframes */
+@keyframes wave-hand {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(16deg); }
+  30% { transform: rotate(-10deg); }
+  45% { transform: rotate(12deg); }
+  60% { transform: rotate(0); }
+  100% { transform: rotate(0); }
 }

@@ -1,66 +1,84 @@
 // src/components/SocialRail.jsx
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CLINIC_INFO } from "../constants/clinic";
 import "../styles/socialrail.css";
 
 export default function SocialRail() {
-  const [isVisible, setIsVisible] = useState(false);
-  const railRef = useRef(null);
-  
+  const [isMounted, setIsMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // เปิด/ปิดกล่อง
+
   const phoneHref = `tel:${(CLINIC_INFO.phoneHref || CLINIC_INFO.phone || "")
     .replace(/\s|-/g, "")
     .trim()}`;
-  const mailHref = `mailto:${CLINIC_INFO.email || ""}`;
 
-  // Hook for simple reveal animation (triggered after mount)
   useEffect(() => {
-    const t = setTimeout(() => {
-      setIsVisible(true);
-    }, 500); // 0.5 second delay to ensure the rail slides in after the page loads
+    const t = setTimeout(() => setIsMounted(true), 500);
     return () => clearTimeout(t);
   }, []);
 
   return (
-    // ใช้ social-rail-bottom และเพิ่ม class สำหรับ animation
     <div
-      ref={railRef}
-      className={`social-rail-bottom d-none d-md-flex ${isVisible ? 'social-rail-visible' : ''}`}
+      className={`social-rail-root d-none d-md-flex ${
+        isMounted ? "social-rail-root-visible" : ""
+      }`}
     >
-      {/* Call Button (Teal/Cyan Gradient) */}
-      {CLINIC_INFO.phone && (
-        <a
-          href={phoneHref}
-          className="social-btn-pair social-call"
-          aria-label="Call Dental Smile Pattaya"
-        >
-          <span className="icon-ring">📞</span>
-          <span className="social-label d-none d-lg-inline">Call us now</span>
-        </a>
-      )}
-      
-      {/* Appointment/Form Button (Cyan/Teal Gradient) */}
-      <a
-        href="#contact"
-        className="social-btn-pair social-appt"
-        aria-label="Book appointment"
-      >
-        <span className="icon-ring">📝</span>
-        <span className="social-label d-none d-lg-inline">Contact Us</span>
-      </a>
+      {/* รูปหมอ — โชว์ตลอด */}
+      <div className="social-dentist-wrap">
+        <img
+          src="/dentist-female.png"
+          alt="Dentist"
+          className="social-dentist-img"
+        />
+      </div>
 
-      {/* Facebook Button (Blue/Indigo Gradient) */}
-      {CLINIC_INFO.links.facebook && (
-        <a
-          href={CLINIC_INFO.links.facebook}
-          target="_blank"
-          rel="noreferrer"
-          className="social-btn-pair social-fb"
-          aria-label="Facebook Dental Smile Pattaya"
-        >
-          <span className="icon-ring">f</span>
-          <span className="social-label d-none d-lg-inline">Facebook</span>
-        </a>
+      {/* กล่อง Need help? — โผล่เฉพาะตอน isOpen */}
+      {isOpen && (
+        <div className="social-rail-panel">
+          <div className="social-rail-card">
+            <div className="social-rail-header">
+              <span className="wave-hand">👋</span>
+              <div>
+                <p className="social-rail-title">Need help?</p>
+                <p className="social-rail-sub">Contact Dental Smile</p>
+              </div>
+            </div>
+
+            <div className="social-rail-actions">
+              {CLINIC_INFO.phone && (
+                <a href={phoneHref} className="social-btn social-call">
+                  <span className="social-btn-icon">📞</span>
+                  <span className="social-btn-text">Call us</span>
+                </a>
+              )}
+
+              <a href="#contact" className="social-btn social-appt">
+                <span className="social-btn-icon">📝</span>
+                <span className="social-btn-text">Send enquiry</span>
+              </a>
+
+              {CLINIC_INFO.links.facebook && (
+                <a
+                  href={CLINIC_INFO.links.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="social-btn social-fb"
+                >
+                  <span className="social-btn-icon">f</span>
+                  <span className="social-btn-text">Facebook</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
       )}
+
+      {/* ปุ่มลอย */}
+      <button
+        className={`social-toggle-btn ${isOpen ? "social-toggle-open" : ""}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="social-toggle-icon">💬</span>
+      </button>
     </div>
   );
 }

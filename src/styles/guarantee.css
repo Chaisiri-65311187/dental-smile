@@ -1,43 +1,101 @@
-/* ============================================================
- * Guarantee – Warranty section
- * ==========================================================*/
+/* src/styles/guarantee.css */
 
 .guarantee-section {
-  background: #ffffff;
-}
-
-/* subtle soft background box */
-.bg-soft-ink {
-  /* เดิมเป็น radial-gradient … */
-  background: #ffffff;
+  background: #f3f4ff;
 }
 
 .warranty-pill {
+  display: inline-block;
+  padding: 5px 14px;
   font-size: 0.78rem;
   border-radius: 999px;
-  padding: 0.35rem 0.9rem;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: linear-gradient(
-    135deg,
-    rgba(224, 242, 254, 0.96),
-    rgba(236, 253, 245, 0.96)
-  );
-  color: #0369a1;
+  background: rgba(59, 130, 246, 0.08);
+  color: #1d4ed8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-/* main cards */
+.guarantee-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-top: 0.7rem;
+}
+
+.guarantee-sub {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* Cards */
+
 .guarantee-card {
-  border-radius: 1.4rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+  border-radius: 1.2rem;
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  margin-bottom: 1rem;
 }
 
-/* subtle soft background box */
-.bg-soft-ink {
-  background: radial-gradient(circle at top left, #e5f0ff 0, #f8fafc 40%, #ffffff 100%);
+.guarantee-card-soft {
+  background: #f9fafb;
 }
 
-/* list bullets */
-.guarantee-list li {
-  margin-bottom: 0.3rem;
+.guarantee-card-body {
+  padding: 1.1rem 1.3rem 1.2rem;
+}
+
+.guarantee-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+/* Table */
+
+.guarantee-table thead th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+  border-bottom-color: rgba(148, 163, 184, 0.4);
+}
+
+.guarantee-table tbody td {
+  font-size: 0.83rem;
+  color: #374151;
+}
+
+/* List */
+
+.guarantee-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.83rem;
+  color: #4b5563;
+}
+
+.guarantee-list li + li {
+  margin-top: 0.25rem;
+}
+
+/* Side block */
+
+.guarantee-side {
+  border-radius: 1.2rem;
+  background: radial-gradient(circle at 0 0, #dbeafe, transparent 65%),
+    #0f172a;
+  color: #e5e7eb;
+  padding: 1.4rem 1.5rem;
+}
+
+.guarantee-side-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.guarantee-side-text {
+  font-size: 0.86rem;
+  margin-bottom: 0.4rem;
+  color: #e5e7eb;
 }

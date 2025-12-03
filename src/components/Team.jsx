@@ -3,15 +3,14 @@ import React from "react";
 import "../styles/team.css";
 
 const DOCTORS = [
-  // ... (ข้อมูลแพทย์ยังคงเดิม)
   {
     name: "Dr. Patcharin Nanthaekaphong",
     nickname: "Dr. Cherry",
     role: "Prosthodontist & Implant Dentist",
     education: [
-      "Doctor of Dental Surgery (Honours), Mahidol University",
-      "Master in Prosthodontics Dentistry, Mahidol University",
-      "Certificates in Surgical & Prosthetic Implant Dentistry (Bern University Swiss, AIC and others)",
+      "DDS (Honours), Mahidol University",
+      "Master in Prosthodontics, Mahidol University",
+      "Implant training (Bern, AIC and others)",
     ],
   },
   {
@@ -19,8 +18,8 @@ const DOCTORS = [
     nickname: "Dr. Tob",
     role: "Orthodontist",
     education: [
-      "Doctor of Dental Surgery, Khon Kaen University",
-      "Master of Science in Dentistry (Orthodontics), Khon Kaen University",
+      "DDS, Khon Kaen University",
+      "MSc (Orthodontics), Khon Kaen University",
     ],
   },
   {
@@ -28,8 +27,8 @@ const DOCTORS = [
     nickname: "Dr. Ae",
     role: "Periodontist",
     education: [
-      "Doctor of Dental Surgery (Honours), Mahidol University",
-      "Master of Science in Dentistry (Periodontics), Mahidol University",
+      "DDS (Honours), Mahidol University",
+      "MSc (Periodontics), Mahidol University",
       "Diplomate, Thai Board of Periodontics",
     ],
   },
@@ -38,8 +37,8 @@ const DOCTORS = [
     nickname: "Dr. Nung",
     role: "Endodontist",
     education: [
-      "Doctor of Dental Surgery (Honours), Srinakharinvirot University",
-      "Master of Science in Dentistry (Endodontics), Srinakharinvirot University",
+      "DDS (Honours), Srinakharinvirot University",
+      "MSc (Endodontics), Srinakharinvirot University",
     ],
   },
   {
@@ -47,42 +46,36 @@ const DOCTORS = [
     nickname: "Dr. Boy",
     role: "Advanced General Dentistry",
     education: [
-      "Doctor of Dental Surgery, Mahidol University",
-      "Master of Science in General Dentistry, Khon Kaen University",
+      "DDS, Mahidol University",
+      "MSc in General Dentistry, Khon Kaen University",
     ],
   },
   {
-    name: "Dr. Chaichan Sangsirinakagul",
+    name: "Dr. Chaichan Sangsirinakakul",
     nickname: "Dr. Gui",
     role: "Advanced General Dentistry",
     education: [
-      "Doctor of Dental Surgery, Khon Kaen University",
-      "Master of Science in General Dentistry, Khon Kaen University",
+      "DDS, Khon Kaen University",
+      "MSc in General Dentistry, Khon Kaen University",
     ],
   },
   {
     name: "Dr. Jureeporn Piladist",
     nickname: "Dr. Numaoi",
     role: "General Dentistry",
-    education: [
-      "Doctor of Dental Surgery, Chulalongkorn University",
-    ],
+    education: ["DDS, Chulalongkorn University"],
   },
   {
     name: "Dr. Lalita Rutchakitprakarn",
     nickname: "Dr. Ann",
     role: "General Dentistry",
-    education: [
-      "Doctor of Dental Surgery, Thammasat University",
-    ],
+    education: ["DDS, Thammasat University"],
   },
   {
     name: "Dr. Chatchai Tharanont",
     nickname: "Dr. Chai",
     role: "General Dentistry",
-    education: [
-      "Doctor of Dental Surgery, Mahidol University",
-    ],
+    education: ["DDS, Mahidol University"],
   },
 ];
 
@@ -100,51 +93,41 @@ const FALLBACK_IMG =
 
 export default function Team() {
   return (
-    <section id="team" className="section-pad section-fade">
+    <section id="team" className="section-pad team-section">
       <div className="container">
-        {/* ลบ class "reveal" ออก */}
-        <div className="text-center mb-5">
-          <h2 className="h2 fw-bold text-ink mb-2">Our dentist team</h2>
-          <p className="small text-ink-3 mb-0">
-            Experienced prosthodontists, implant dentists, orthodontists and
-            general dentists providing comprehensive care.
+        <div className="text-center mb-4">
+          <span className="team-badge">Dentist team</span>
+          <h2 className="team-title">Specialist & general dentists</h2>
+          <p className="team-sub">
+            A friendly team of specialists and general dentists working
+            together for your smile.
           </p>
         </div>
 
-        {/* ลบ class "reveal-stagger" ออก */}
         <div className="row g-4">
           {DOCTORS.map((doc) => (
             <div className="col-md-6 col-lg-4" key={doc.name}>
-              <article className="team-card h-100 p-4 d-flex flex-column align-items-center text-center">
-                
-                {/* Image Wrapper */}
-                <div className="team-img-wrapper mb-3">
-                    <img
-                      src={getDoctorImage(doc)}
-                      onError={(e) => {
-                        e.currentTarget.src = FALLBACK_IMG;
-                      }}
-                      alt={doc.name}
-                      className="team-img"
-                    />
+              <article className="team-card">
+                <div className="team-img-wrapper">
+                  <img
+                    src={getDoctorImage(doc)}
+                    onError={(e) => {
+                      e.currentTarget.src = FALLBACK_IMG;
+                    }}
+                    alt={doc.name}
+                    className="team-img"
+                  />
                 </div>
-                
-                {/* Name and Role */}
-                <h3 className="h6 fw-bold text-ink mb-0 team-name">
-                  {doc.name}
-                </h3>
-                {/* Role/Specialty */}
-                <div className="tiny text-ink-3 team-specialty mb-2">
-                    {doc.role}
-                </div>
-                
-                {/* Education List */}
-                <ul className="list-unstyled text-ink-3 mb-0 team-edu">
-                  {doc.education.map((ed) => (
-                    <li key={ed}>{ed}</li>
-                  ))}
-                </ul>
 
+                <div className="team-body">
+                  <h3 className="team-name">{doc.name}</h3>
+                  <div className="team-role">{doc.role}</div>
+                  <ul className="team-edu">
+                    {doc.education.map((ed) => (
+                      <li key={ed}>{ed}</li>
+                    ))}
+                  </ul>
+                </div>
               </article>
             </div>
           ))}

@@ -2,68 +2,74 @@
 import React from "react";
 import "../styles/facility.css";
 
-const SECTIONS = [
+export const FACILITY_GROUPS = [
   {
-    title: "Reception & waiting area",
-    icon: "💺",
+    group: "Reception and Waiting Area",
     items: [
-      "Welcoming reception space with friendly staff",
-      "Comfortable waiting zone with natural light",
-      "Easy access on Pattaya 3rd Road",
+      { title: "Waiting Area", src: "/dental_waiting2.jpg" },
+      { title: "Reception", src: "/dental_reception.jpg" },
+      { title: "Front Area", src: "/dental_front.jpg" },
+      { title: "Office / Side Reception", src: "/dental_office.jpg" },
     ],
   },
+
   {
-    title: "Dental equipment sterilization room",
-    icon: "🧼",
+    group: "Dental Equipment Sterilization Room",
     items: [
-      "Dedicated sterilization room",
-      "Modern sterilization technology",
-      "Strict infection-control workflow",
+      { title: "Sterilization Room", src: "/dental_sterile.jpg" },
+      { title: "Sterilization Equipment", src: "/autoclave.jpg" },
     ],
   },
+
   {
-    title: "Dental treatment rooms",
-    icon: "🦷",
+    group: "Dental Treatment Room",
     items: [
-      "Fully equipped dental chair units",
-      "General, cosmetic & implant procedures",
-      "Clean, bright and safe environment",
+      { title: "Dental Chair Unit 1", src: "/dental_unit1.jpg" },
+      { title: "Dental Chair Unit 2", src: "/dental_unit2.jpg" },
     ],
   },
 ];
+
 
 export default function Facility() {
   return (
     <section id="facility" className="facility-section section-pad">
       <div className="container">
 
-        <div className="text-center mb-4 mb-md-5 facility-header-wrap fade-up-soft">
-          <h2 className="facility-title">Clinic facilities</h2>
+        <div className="text-center mb-5 facility-header-wrap fade-up-soft">
+          <div className="facility-badge">Facilities</div>
+          <h2 className="facility-title">Modern & Clean Clinic</h2>
           <p className="facility-sub">
-            Modern, clean and welcoming rooms designed for safe and gentle dental care.
+            Designed for comfort, safety, and high-quality dental care.
           </p>
         </div>
 
-        <div className="row g-4">
-          {SECTIONS.map((sec) => (
-            <div className="col-md-4 fade-up-soft delay-1" key={sec.title}>
-              <article className="facility-card">
-                
-                <div className="facility-icon">{sec.icon}</div>
+        {FACILITY_GROUPS.map((group, i) => (
+          <div key={i} className="facility-group-section">
 
-                <h3 className="facility-card-title">{sec.title}</h3>
-
-                <ul className="facility-card-list">
-                  {sec.items.map((it) => (
-                    <li key={it}>{it}</li>
-                  ))}
-                </ul>
-
-              </article>
+            <div className="facility-group-header">
+              <h3 className="facility-group-title">{group.group}</h3>
+              <div className="facility-group-line"></div>
             </div>
-          ))}
-        </div>
-          
+
+            <div className="row g-4 mt-2">
+              {group.items.map((item, idx) => (
+                <div key={idx} className={`col-12 col-sm-6 col-lg-3 fade-up-soft`}>
+                  <article className="facility-card-img">
+
+                    <div className="facility-img-wrap">
+                      <img src={item.src} alt={item.title} className="facility-img" />
+                      <div className="facility-overlay"></div>
+                    </div>
+
+                    <p className="facility-label">{item.title}</p>
+                  </article>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        ))}
       </div>
     </section>
   );
